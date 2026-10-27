@@ -1,0 +1,346 @@
+{
+ "total": 3302,
+ "total_innovation": 2956,
+ "by_owner": {
+  "nget": 7,
+  "ssen_d": 352,
+  "none": 1692,
+  "npg": 115,
+  "enwl": 131,
+  "neso": 3,
+  "ukpn": 227,
+  "nged": 143,
+  "spen": 286
+ },
+ "storm": {
+  "n": 25,
+  "sub_n": 0,
+  "by_owner": {
+   "none": 20,
+   "npg": 1,
+   "spen": 1,
+   "ssen_d": 3
+  },
+  "items": [
+   {
+    "external_ref": "NIA_SHET_0064",
+    "name": "DEEP-PEAT: Drone-Based Electromagnetic and Geophysical Peat Depth Surveys",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-3",
+    "owner_network_id": "ssen_d",
+    "start_date": "2026-09-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_shet_0064/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA3_NGET0002",
+    "name": "Twin Spacer Damper Installation and Removal Robots (TWIN-SPIDER)",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-3",
+    "owner_network_id": null,
+    "start_date": "2026-08-01",
+    "url": "https://smarter.energynetworks.org/projects/nia3_nget0002/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA3_NGET0014",
+    "name": "DRB Aero Insulator Testing Robot (AEROINS)",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-3",
+    "owner_network_id": null,
+    "start_date": "2026-08-01",
+    "url": "https://smarter.energynetworks.org/projects/nia3_nget0014/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA3_NGET0015",
+    "name": "Twin Spacer-Damper Removal Robots for carbon core conductor (SpacerClear-CC)",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-3",
+    "owner_network_id": null,
+    "start_date": "2026-08-01",
+    "url": "https://smarter.energynetworks.org/projects/nia3_nget0015/",
+    "sub": false
+   },
+   {
+    "external_ref": "10193298",
+    "name": "RISE - (ROBOTICS INTEGRATION FOR SUSTAINABLE ENERGY) SIF DISCOVERY R5",
+    "status": "Live",
+    "funding_stream": "SIF Discovery - Round 5",
+    "owner_network_id": "ssen_d",
+    "start_date": "2026-05-01",
+    "url": "https://smarter.energynetworks.org/projects/10193298/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA2_NGET0087",
+    "name": "UAV-based Remote Hyperspectral Imaging for Condition Assessment (URHICA)",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-2",
+    "owner_network_id": null,
+    "start_date": "2025-05-01",
+    "url": "https://smarter.energynetworks.org/projects/nia2_nget0087/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA2_NGET0060",
+    "name": "Robot, AI and Drone Enhanced Detection of Discharge (RAIDEDD)",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-2",
+    "owner_network_id": null,
+    "start_date": "2024-04-01",
+    "url": "https://smarter.energynetworks.org/projects/nia2_nget0060/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA2_NGET0043",
+    "name": "Aerial inspections of OHLs from Beyond Visual Line of Sight (BVLOS)",
+    "status": "Complete",
+    "funding_stream": "NIA RIIO-2",
+    "owner_network_id": null,
+    "start_date": "2024-03-01",
+    "url": "https://smarter.energynetworks.org/projects/nia2_nget0043/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_CAD0024",
+    "name": "In Pipe Drone Feasibility",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": null,
+    "start_date": "2018-07-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_cad0024/",
+    "sub": false
+   },
+   {
+    "external_ref": "SGNGN04",
+    "name": "Robotic Roadworks and Excavation System (RRES)",
+    "status": "Complete",
+    "funding_stream": "NIC",
+    "owner_network_id": null,
+    "start_date": "2018-04-01",
+    "url": "https://smarter.energynetworks.org/projects/sgngn04/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_NPG_022",
+    "name": "Drones Within Visual Line Of Sight (Drone WVLOS)",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": "npg",
+    "start_date": "2018-01-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_npg_022/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_SGN0104",
+    "name": "Robotic Roadworks System (RRS) - Stage 2",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": null,
+    "start_date": "2016-11-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_sgn0104/",
+    "sub": false
+   }
+  ]
+ },
+ "dcflex": {
+  "n": 3,
+  "sub_n": 3,
+  "by_owner": {
+   "none": 3
+  },
+  "items": [
+   {
+    "external_ref": "NIA3_NESO007",
+    "name": "Flexible Operation of Data Centres Feasibility Study",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-3",
+    "owner_network_id": null,
+    "start_date": "2026-09-01",
+    "url": "https://smarter.energynetworks.org/projects/nia3_neso007/",
+    "sub": true
+   },
+   {
+    "external_ref": "NIA2_NESO098",
+    "name": "Options for optimising GB Data Centres",
+    "status": "Complete",
+    "funding_stream": "NIA RIIO-2",
+    "owner_network_id": null,
+    "start_date": "2024-12-01",
+    "url": "https://smarter.energynetworks.org/projects/nia2_neso098/",
+    "sub": true
+   },
+   {
+    "external_ref": "NIA_WWU_02_35",
+    "name": "Understanding Future Energy Loads from Data Centres",
+    "status": "Complete",
+    "funding_stream": "NIA RIIO-2",
+    "owner_network_id": null,
+    "start_date": "2024-09-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_wwu_02_35/",
+    "sub": true
+   }
+  ]
+ },
+ "queue": {
+  "n": 1,
+  "sub_n": 0,
+  "by_owner": {
+   "ukpn": 1
+  },
+  "items": [
+   {
+    "external_ref": "NIA_UKPN0100",
+    "name": "Trading Connections: Exploring a novel approach to connections queues",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-2",
+    "owner_network_id": "ukpn",
+    "start_date": "2024-02-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_ukpn0100/",
+    "sub": false
+   }
+  ]
+ },
+ "flood": {
+  "n": 5,
+  "sub_n": 0,
+  "by_owner": {
+   "none": 4,
+   "spen": 1
+  },
+  "items": [
+   {
+    "external_ref": "NGET/Eye_in_the_Sky/SIFDataDigitalisation/Rd1_Alpha",
+    "name": "Eye in the Sky \u2013 Utilising satellite data to improve grid resilience",
+    "status": "Complete",
+    "funding_stream": "SIF Alpha - Round 1",
+    "owner_network_id": null,
+    "start_date": "2022-08-01",
+    "url": "https://smarter.energynetworks.org/projects/nget-eye_in_the_sky-sifdatadigitalisation-rd1_alpha/",
+    "sub": false
+   },
+   {
+    "external_ref": "10027585",
+    "name": "Eye in the Sky - Application of satellite data to improve grid resilience",
+    "status": "Live",
+    "funding_stream": "SIF - Discovery",
+    "owner_network_id": null,
+    "start_date": "2022-03-01",
+    "url": "https://smarter.energynetworks.org/projects/10027585/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_SGN0150",
+    "name": "Satellite Infrastructure Monitoring (SIM) \u2013 Stage 1",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": null,
+    "start_date": "2019-10-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_sgn0150/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_SPT_1701",
+    "name": "Development of a lone working device, incorporating satellite communications and fall detection.",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": "spen",
+    "start_date": "2017-04-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_spt_1701/",
+    "sub": false
+   },
+   {
+    "external_ref": "d93821bc-f9d2-4f1d-a0f9-494a8ad8b5f3",
+    "name": "Satellite Based Loss of Mains (LoM)",
+    "status": "Complete",
+    "funding_stream": "IFI",
+    "owner_network_id": null,
+    "start_date": "2009-02-02",
+    "url": "https://smarter.energynetworks.org/projects/prj_705/",
+    "sub": false
+   }
+  ]
+ },
+ "sst": {
+  "n": 7,
+  "sub_n": 0,
+  "by_owner": {
+   "none": 4,
+   "ssen_d": 2,
+   "ukpn": 1
+  },
+  "items": [
+   {
+    "external_ref": "NIA2_NGET0068",
+    "name": "AIDPS: Assessing the Impacts of DC Components from Power Electronic Devices and Geomagnetically Induced Currents",
+    "status": "Live",
+    "funding_stream": "NIA RIIO-2",
+    "owner_network_id": null,
+    "start_date": "2025-04-01",
+    "url": "https://smarter.energynetworks.org/projects/nia2_nget0068/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_NGTO045",
+    "name": "Risk mitigation of power electronics connections",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": null,
+    "start_date": "2020-03-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_ngto045/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_NGTO035",
+    "name": "Power Electronic Enabled Transformers (PEETs)",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": null,
+    "start_date": "2019-10-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_ngto035/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_NGTO008",
+    "name": "The FMEA Studies and Risk-based Maintenance for Emerging Power Electronics Assets within GB Power Networks",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": null,
+    "start_date": "2018-08-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_ngto008/",
+    "sub": false
+   },
+   {
+    "external_ref": "UKPNEN01",
+    "name": "Powerful-CB: Power Electronic Fault Limiting Circuit Breaker",
+    "status": "Complete",
+    "funding_stream": "NIC",
+    "owner_network_id": "ukpn",
+    "start_date": "2017-01-01",
+    "url": "https://smarter.energynetworks.org/projects/ukpnen01/",
+    "sub": false
+   },
+   {
+    "external_ref": "NIA_SSEPD_0029",
+    "name": "11kV power electronics providing reactive compensation for voltage control",
+    "status": "Complete",
+    "funding_stream": "Network Innovation Allowance",
+    "owner_network_id": "ssen_d",
+    "start_date": "2016-06-01",
+    "url": "https://smarter.energynetworks.org/projects/nia_ssepd_0029/",
+    "sub": false
+   },
+   {
+    "external_ref": "cd0307ad-d2b1-4f53-b5fc-3e6b591f6f65",
+    "name": "Power Electronics Regulator",
+    "status": "Complete",
+    "funding_stream": "IFI",
+    "owner_network_id": "ssen_d",
+    "start_date": "2005-04-01",
+    "url": "https://smarter.energynetworks.org/projects/prj_1005/",
+    "sub": false
+   }
+  ]
+ }
+}

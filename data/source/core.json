@@ -1,0 +1,2624 @@
+{
+ "networks": [
+  {
+   "network_id": "enwl",
+   "name": "Electricity North West",
+   "role": "DNO",
+   "parent_group": "ScottishPower / Iberdrola"
+  },
+  {
+   "network_id": "neso",
+   "name": "NESO",
+   "role": "SO",
+   "parent_group": "NESO"
+  },
+  {
+   "network_id": "nged",
+   "name": "National Grid Electricity Distribution",
+   "role": "DNO",
+   "parent_group": "National Grid"
+  },
+  {
+   "network_id": "nget",
+   "name": "National Grid Electricity Transmission",
+   "role": "TO",
+   "parent_group": "National Grid"
+  },
+  {
+   "network_id": "npg",
+   "name": "Northern Powergrid",
+   "role": "DNO",
+   "parent_group": "Northern Powergrid"
+  },
+  {
+   "network_id": "spen",
+   "name": "SP Energy Networks",
+   "role": "DNO",
+   "parent_group": "ScottishPower"
+  },
+  {
+   "network_id": "spt",
+   "name": "SP Transmission",
+   "role": "TO",
+   "parent_group": "ScottishPower"
+  },
+  {
+   "network_id": "ssen_d",
+   "name": "SSEN Distribution",
+   "role": "DNO",
+   "parent_group": "SSE"
+  },
+  {
+   "network_id": "ssen_t",
+   "name": "SSEN Transmission",
+   "role": "TO",
+   "parent_group": "SSE"
+  },
+  {
+   "network_id": "ukpn",
+   "name": "UK Power Networks",
+   "role": "DNO",
+   "parent_group": "UK Power Networks"
+  }
+ ],
+ "weather": [
+  {
+   "area_key": "enwl",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_20_mean",
+   "value": 1.213,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 2,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1081
+   }
+  },
+  {
+   "area_key": "enwl",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_25_mean",
+   "value": 0.554,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 1,
+    "p90": 1,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1081
+   }
+  },
+  {
+   "area_key": "enwl",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_20mm_mean",
+   "value": 1.456,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 2,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1081
+   }
+  },
+  {
+   "area_key": "enwl",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_40mm_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1081
+   }
+  },
+  {
+   "area_key": "enwl",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_tmax_ge_30c_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1081
+   }
+  },
+  {
+   "area_key": "neso",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_20_mean",
+   "value": 2.549,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 13,
+    "p90": 5,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 720
+   }
+  },
+  {
+   "area_key": "neso",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_25_mean",
+   "value": 0.688,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 4,
+    "p90": 1,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 720
+   }
+  },
+  {
+   "area_key": "neso",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_20mm_mean",
+   "value": 0.469,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 2,
+    "p90": 1,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 720
+   }
+  },
+  {
+   "area_key": "neso",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_40mm_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 720
+   }
+  },
+  {
+   "area_key": "neso",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_tmax_ge_30c_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 720
+   }
+  },
+  {
+   "area_key": "nged",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_20_mean",
+   "value": 3.277,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 10,
+    "p90": 5,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1181
+   }
+  },
+  {
+   "area_key": "nged",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_25_mean",
+   "value": 0.695,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 5,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1181
+   }
+  },
+  {
+   "area_key": "nged",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_20mm_mean",
+   "value": 0.8,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 3,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1181
+   }
+  },
+  {
+   "area_key": "nged",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_40mm_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1181
+   }
+  },
+  {
+   "area_key": "nged",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_tmax_ge_30c_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1181
+   }
+  },
+  {
+   "area_key": "npg",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_20_mean",
+   "value": 1.216,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 3,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 670
+   }
+  },
+  {
+   "area_key": "npg",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_25_mean",
+   "value": 0.485,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 1,
+    "p90": 1,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 670
+   }
+  },
+  {
+   "area_key": "npg",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_20mm_mean",
+   "value": 1.116,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 2,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 670
+   }
+  },
+  {
+   "area_key": "npg",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_40mm_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 670
+   }
+  },
+  {
+   "area_key": "npg",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_tmax_ge_30c_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 670
+   }
+  },
+  {
+   "area_key": "spen",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_20_mean",
+   "value": 1.608,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 4,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1001
+   }
+  },
+  {
+   "area_key": "spen",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_25_mean",
+   "value": 0.622,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 2,
+    "p90": 1,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1001
+   }
+  },
+  {
+   "area_key": "spen",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_20mm_mean",
+   "value": 0.998,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 2,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1001
+   }
+  },
+  {
+   "area_key": "spen",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_40mm_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1001
+   }
+  },
+  {
+   "area_key": "spen",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_tmax_ge_30c_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1001
+   }
+  },
+  {
+   "area_key": "ssen_d",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_20_mean",
+   "value": 4.519,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 14,
+    "p90": 8,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1556
+   }
+  },
+  {
+   "area_key": "ssen_d",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_25_mean",
+   "value": 0.742,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 4,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1556
+   }
+  },
+  {
+   "area_key": "ssen_d",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_20mm_mean",
+   "value": 0.541,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 2,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1556
+   }
+  },
+  {
+   "area_key": "ssen_d",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_40mm_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1556
+   }
+  },
+  {
+   "area_key": "ssen_d",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_tmax_ge_30c_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1556
+   }
+  },
+  {
+   "area_key": "ukpn",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_20_mean",
+   "value": 5.349,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 8,
+    "p90": 8,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1026
+   }
+  },
+  {
+   "area_key": "ukpn",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_gust_ge_25_mean",
+   "value": 0.429,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 4,
+    "p90": 2,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1026
+   }
+  },
+  {
+   "area_key": "ukpn",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_20mm_mean",
+   "value": 0.213,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 1,
+    "p90": 1,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1026
+   }
+  },
+  {
+   "area_key": "ukpn",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_precip_ge_40mm_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1026
+   }
+  },
+  {
+   "area_key": "ukpn",
+   "area_level": "network",
+   "period": "2025-01_2025-01",
+   "metric": "era5_tmax_ge_30c_mean",
+   "value": 0,
+   "unit": "days",
+   "source": "CDS derived-era5-single-levels-daily-statistics",
+   "licence": "CC-BY (Copernicus CDS)",
+   "raw": {
+    "max": 0,
+    "p90": 0,
+    "months": [
+     1
+    ],
+    "n_days": 31,
+    "attribution": "Generated using Copernicus Climate Change Service information",
+    "n_sites_mapped": 1026
+   }
+  }
+ ],
+ "flood": [
+  {
+   "network_id": "enwl",
+   "sites": 1081,
+   "flagged": 85,
+   "nations": "England,Scotland,Wales",
+   "as_of": "2026-10-27",
+   "source": "EA Flood Warning Areas + flood-monitoring API | NRW Flood Map for Planning Zones 2/3 via DataMapWales WMS GetFeatureInfo | SEPA Flood Maps MapServer identify (layers 0,1,6,7 river/coastal H/M)",
+   "licence": "OGL v3 | OGL v3 (NRW / Welsh Government) | OGL v3 (SEPA attribution)"
+  },
+  {
+   "network_id": "neso",
+   "sites": 726,
+   "flagged": 123,
+   "nations": "England,other,Scotland,unknown,Wales",
+   "as_of": "2026-10-27",
+   "source": "EA Flood Warning Areas + flood-monitoring API | no site xy | NRW Flood Map for Planning Zones 2/3 via DataMapWales WMS GetFeatureInfo | SEPA Flood Maps MapServer identify (layers 0,1,6,7 river/coastal H/M)",
+   "licence": "n/a | OGL v3 | OGL v3 (NRW / Welsh Government) | OGL v3 (SEPA attribution)"
+  },
+  {
+   "network_id": "nged",
+   "sites": 1181,
+   "flagged": 169,
+   "nations": "England,Wales",
+   "as_of": "2026-10-27",
+   "source": "EA Flood Warning Areas + flood-monitoring API | NRW Flood Map for Planning Zones 2/3 via DataMapWales WMS GetFeatureInfo",
+   "licence": "OGL v3 | OGL v3 (NRW / Welsh Government)"
+  },
+  {
+   "network_id": "npg",
+   "sites": 670,
+   "flagged": 126,
+   "nations": "England,Scotland",
+   "as_of": "2026-10-27",
+   "source": "EA Flood Warning Areas + flood-monitoring API | SEPA Flood Maps MapServer identify (layers 0,1,6,7 river/coastal H/M)",
+   "licence": "OGL v3 | OGL v3 (SEPA attribution)"
+  },
+  {
+   "network_id": "spen",
+   "sites": 1001,
+   "flagged": 87,
+   "nations": "England,Scotland,Wales",
+   "as_of": "2026-10-27",
+   "source": "EA Flood Warning Areas + flood-monitoring API | NRW Flood Map for Planning Zones 2/3 via DataMapWales WMS GetFeatureInfo | SEPA Flood Maps MapServer identify (layers 0,1,6,7 river/coastal H/M)",
+   "licence": "OGL v3 | OGL v3 (NRW / Welsh Government) | OGL v3 (SEPA attribution)"
+  },
+  {
+   "network_id": "ssen_d",
+   "sites": 1556,
+   "flagged": 128,
+   "nations": "England,other,Scotland",
+   "as_of": "2026-10-27",
+   "source": "EA Flood Warning Areas + flood-monitoring API | SEPA Flood Maps MapServer identify (layers 0,1,6,7 river/coastal H/M)",
+   "licence": "OGL v3 | OGL v3 (SEPA attribution)"
+  },
+  {
+   "network_id": "ssen_t",
+   "sites": 404,
+   "flagged": 0,
+   "nations": "unknown",
+   "as_of": "2026-10-27",
+   "source": "no site xy",
+   "licence": "n/a"
+  },
+  {
+   "network_id": "ukpn",
+   "sites": 1026,
+   "flagged": 212,
+   "nations": "England",
+   "as_of": "2026-10-27",
+   "source": "EA Flood Warning Areas + flood-monitoring API",
+   "licence": "OGL v3"
+  }
+ ],
+ "faults": [
+  {
+   "network_id": "ukpn",
+   "year": 2021,
+   "metric_name": "incident_count",
+   "metric_value": 39803,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2021,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 1984496,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2022,
+   "metric_name": "incident_count",
+   "metric_value": 39073,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2022,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 1696266,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2023,
+   "metric_name": "incident_count",
+   "metric_value": 43651,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2023,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 1888935,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2024,
+   "metric_name": "incident_count",
+   "metric_value": 42581,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2024,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 1956036,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2021,
+   "metric_name": "incident_count",
+   "metric_value": 15126,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2021,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 376345,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2022,
+   "metric_name": "incident_count",
+   "metric_value": 14607,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2022,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 296236,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2023,
+   "metric_name": "incident_count",
+   "metric_value": 15177,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2023,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 311503,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2024,
+   "metric_name": "incident_count",
+   "metric_value": 14113,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2024,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 289559,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2021,
+   "metric_name": "incident_count",
+   "metric_value": 23092,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2021,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 1472608,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2022,
+   "metric_name": "incident_count",
+   "metric_value": 23092,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2022,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 1445440,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2023,
+   "metric_name": "incident_count",
+   "metric_value": 24280,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2023,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 1358803,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2024,
+   "metric_name": "incident_count",
+   "metric_value": 21840,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2024,
+   "metric_name": "customers_restored_sum",
+   "metric_value": 1121939,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://ukpowernetworks.opendatasoft.com/explore/dataset/ukpn-iis"
+  },
+  {
+   "network_id": "enwl",
+   "year": 1997,
+   "metric_name": "incident_count",
+   "metric_value": 3,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 1997,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 14628,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 1997,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 274809,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2000,
+   "metric_name": "incident_count",
+   "metric_value": 13310,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2000,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 195409,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2000,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 27178802,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2001,
+   "metric_name": "incident_count",
+   "metric_value": 14639,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2001,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 835072,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2001,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 89384979,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2002,
+   "metric_name": "incident_count",
+   "metric_value": 15735,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2002,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1439836,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2002,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 142235349,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2003,
+   "metric_name": "incident_count",
+   "metric_value": 16075,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2003,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1151902,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2003,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 127262066,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2004,
+   "metric_name": "incident_count",
+   "metric_value": 17500,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2004,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1284905,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2004,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 514687944,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2005,
+   "metric_name": "incident_count",
+   "metric_value": 15042,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2005,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1401209,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2005,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 112378699,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2006,
+   "metric_name": "incident_count",
+   "metric_value": 14131,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2006,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1429869,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2006,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 152196683,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2007,
+   "metric_name": "incident_count",
+   "metric_value": 12171,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2007,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1417733,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2007,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 107885157,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2008,
+   "metric_name": "incident_count",
+   "metric_value": 11077,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2008,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1241066,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2008,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 105256899,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2009,
+   "metric_name": "incident_count",
+   "metric_value": 11840,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2009,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1368480,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2009,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 103529823,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2010,
+   "metric_name": "incident_count",
+   "metric_value": 12196,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2010,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1481982,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2010,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 100187682,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2011,
+   "metric_name": "incident_count",
+   "metric_value": 11635,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2011,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1304281,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2011,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 94399021,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2012,
+   "metric_name": "incident_count",
+   "metric_value": 12153,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2012,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1463291,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2012,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 106270583,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2013,
+   "metric_name": "incident_count",
+   "metric_value": 10987,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2013,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1376804,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2013,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 111114669,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2014,
+   "metric_name": "incident_count",
+   "metric_value": 9440,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2014,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1014580,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2014,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 69795166,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2015,
+   "metric_name": "incident_count",
+   "metric_value": 10079,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2015,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1289872,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2015,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 188471324,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2016,
+   "metric_name": "incident_count",
+   "metric_value": 9225,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2016,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1100830,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2016,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 72478963,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2017,
+   "metric_name": "incident_count",
+   "metric_value": 9604,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2017,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1083467,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2017,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 81276801,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2018,
+   "metric_name": "incident_count",
+   "metric_value": 9828,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2018,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1323494,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2018,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 79324590,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2019,
+   "metric_name": "incident_count",
+   "metric_value": 9351,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2019,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 946585,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2019,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 63645772,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2020,
+   "metric_name": "incident_count",
+   "metric_value": 9578,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2020,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 907356,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2020,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 62083643,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2021,
+   "metric_name": "incident_count",
+   "metric_value": 9625,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2021,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1277050,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2021,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 168228808,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2022,
+   "metric_name": "incident_count",
+   "metric_value": 9427,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2022,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1084213,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2022,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 59779817,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2023,
+   "metric_name": "incident_count",
+   "metric_value": 11240,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2023,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1367190,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2023,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 85143864,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2024,
+   "metric_name": "incident_count",
+   "metric_value": 10757,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2024,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1408768,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2024,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 103149559,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2025,
+   "metric_name": "incident_count",
+   "metric_value": 10549,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2025,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 1179768,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2025,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 66234654,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2026,
+   "metric_name": "incident_count",
+   "metric_value": 5892,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2026,
+   "metric_name": "customers_affected_sum",
+   "metric_value": 751705,
+   "unit": "customers",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2026,
+   "metric_name": "customer_minutes_lost_sum",
+   "metric_value": 46361062,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2015,
+   "metric_name": "incident_count",
+   "metric_value": 2759,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2016,
+   "metric_name": "incident_count",
+   "metric_value": 2617,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2000,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1158,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2000,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 2344140,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2001,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1540,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2001,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 12571026,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2002,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1746,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2002,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 15070998,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2003,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1755,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2003,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 21512044,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2004,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 3161,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2004,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 414425521,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2005,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1468,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2005,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 14792284,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2006,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 2519,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2006,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 43909891,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2007,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 2066,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2007,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 17665987,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2008,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1888,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2008,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 15582566,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2009,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1824,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2009,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 11394680,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2010,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1930,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2010,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 15475953,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2011,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1997,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2011,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 16550277,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2012,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1897,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2012,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 20919921,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2013,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 2401,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2013,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 36018049,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2014,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1797,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2014,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 11638870,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2015,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 2360,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2015,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 130753296,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2016,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1511,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2016,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 16069883,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2017,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1708,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2017,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 19806913,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2018,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1643,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2018,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 16697726,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2019,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1592,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2019,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 13900968,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2020,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1296,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2020,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 9336521,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2021,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1883,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2021,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 117439375,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2022,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1054,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2022,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 7470984,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2023,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 2137,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2023,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 36945686,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2024,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1972,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2024,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 54527945,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2025,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 1409,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2025,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 13651799,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2026,
+   "metric_name": "cause_incidents:Weather and Environment",
+   "metric_value": 588,
+   "unit": "count",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2026,
+   "metric_name": "cause_cml:Weather and Environment",
+   "metric_value": 3852230,
+   "unit": "customer_minutes",
+   "voltage_band": null,
+   "source_url": "https://electricitynorthwest.opendatasoft.com/explore/dataset/unplanned-outages"
+  },
+  {
+   "network_id": "spen",
+   "year": 2024,
+   "metric_name": "iis_reward_gbp_m",
+   "metric_value": 2.1,
+   "unit": "GBP_m",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "spen",
+   "year": 2024,
+   "metric_name": "iis_rank_year",
+   "metric_value": 1,
+   "unit": "rank",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2024,
+   "metric_name": "iis_reward_gbp_m",
+   "metric_value": 0.4,
+   "unit": "GBP_m",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "enwl",
+   "year": 2024,
+   "metric_name": "iis_rank_year",
+   "metric_value": 2,
+   "unit": "rank",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2024,
+   "metric_name": "iis_reward_gbp_m",
+   "metric_value": -0.4,
+   "unit": "GBP_m",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "ukpn",
+   "year": 2024,
+   "metric_name": "iis_rank_year",
+   "metric_value": 3,
+   "unit": "rank",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "nged",
+   "year": 2024,
+   "metric_name": "iis_reward_gbp_m",
+   "metric_value": -7.3,
+   "unit": "GBP_m",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "nged",
+   "year": 2024,
+   "metric_name": "iis_rank_year",
+   "metric_value": 4,
+   "unit": "rank",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2024,
+   "metric_name": "iis_reward_gbp_m",
+   "metric_value": -7,
+   "unit": "GBP_m",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2024,
+   "metric_name": "iis_rank_year",
+   "metric_value": 5,
+   "unit": "rank",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "npg",
+   "year": 2024,
+   "metric_name": "iis_reward_gbp_m",
+   "metric_value": -9,
+   "unit": "GBP_m",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "npg",
+   "year": 2024,
+   "metric_name": "iis_rank_year",
+   "metric_value": 6,
+   "unit": "rank",
+   "voltage_band": null,
+   "source_url": "https://www.ofgem.gov.uk/sites/default/files/2026-01/ED-annual-report-2024-2025.pdf"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2015,
+   "metric_name": "incident_count",
+   "metric_value": 3285,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2016,
+   "metric_name": "incident_count",
+   "metric_value": 3053,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2017,
+   "metric_name": "incident_count",
+   "metric_value": 3566,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2018,
+   "metric_name": "incident_count",
+   "metric_value": 3463,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2019,
+   "metric_name": "incident_count",
+   "metric_value": 3730,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2020,
+   "metric_name": "incident_count",
+   "metric_value": 3389,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2021,
+   "metric_name": "incident_count",
+   "metric_value": 3988,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2022,
+   "metric_name": "incident_count",
+   "metric_value": 3412,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2023,
+   "metric_name": "incident_count",
+   "metric_value": 3880,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2024,
+   "metric_name": "incident_count",
+   "metric_value": 3680,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2025,
+   "metric_name": "incident_count",
+   "metric_value": 2830,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2026,
+   "metric_name": "incident_count",
+   "metric_value": 1829,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2017,
+   "metric_name": "incident_count",
+   "metric_value": 2422,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2018,
+   "metric_name": "incident_count",
+   "metric_value": 2793,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2019,
+   "metric_name": "incident_count",
+   "metric_value": 2851,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2020,
+   "metric_name": "incident_count",
+   "metric_value": 2733,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2021,
+   "metric_name": "incident_count",
+   "metric_value": 4576,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2022,
+   "metric_name": "incident_count",
+   "metric_value": 3191,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2023,
+   "metric_name": "incident_count",
+   "metric_value": 3885,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2024,
+   "metric_name": "incident_count",
+   "metric_value": 3344,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2025,
+   "metric_name": "incident_count",
+   "metric_value": 4177,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  },
+  {
+   "network_id": "ssen_d",
+   "year": 2026,
+   "metric_name": "incident_count",
+   "metric_value": 1274,
+   "unit": "count",
+   "voltage_band": "HV",
+   "source_url": "https://ckan-prod.sse.datopian.com/dataset/nafirs-hv-faults"
+  }
+ ]
+}
