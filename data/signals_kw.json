@@ -1,0 +1,15 @@
+{
+ "funding_filter": "(NIA|NIC|SIF|IFI|Network Innovation)",
+ "signals": {
+  "storm": {"kw": "(drone|robot|\\muav\\M|bvlos|unmanned aerial)", "kw_label": "drone | robot | UAV | BVLOS | unmanned aerial",
+            "sub": "(storm|post-storm|fault find|fault-find|restoration|restore)", "sub_label": "aimed at post-storm fault-finding or restoration (storm | fault find | restoration | restore)"},
+  "dcflex": {"kw": "(data ?cent(re|er)|flexible connection|non-firm|curtailable connection|interruptible connection)", "kw_label": "data centre | flexible connection | non-firm | curtailable or interruptible connection",
+            "sub": "(data ?cent(re|er))", "sub_label": "that mention data centres"},
+  "queue": {"kw": "(connections? (queue|application|offer|request)s?|queue management|connections? reform)", "kw_label": "connection queue | application | offer | request | queue management | connections reform",
+            "sub": "(artificial intelligence|machine learning|\\mai\\M)", "sub_label": "that use AI or machine learning (artificial intelligence | machine learning | AI)"},
+  "flood": {"kw": "(satellite|earth observation|insar|remote sensing)", "kw_label": "satellite | earth observation | InSAR | remote sensing",
+            "sub": "(flood)", "sub_label": "that also mention flooding"},
+  "sst": {"kw": "(solid[- ]state transformer|power electronic|smart transformer|soft open point|\\msop\\M|\\msst\\M)", "kw_label": "solid-state transformer | power electronics | smart transformer | soft open point | SOP | SST",
+            "sub": "(solid[- ]state transformer|\\msst\\M)", "sub_label": "that are specifically about solid-state transformers"}
+ }
+}

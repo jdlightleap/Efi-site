@@ -1,0 +1,22 @@
+{
+  "name": "efi-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EFI (energy frontier intelligence) early preview site by Lightleap",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "test": "node --test scripts/*.test.mjs",
+    "data": "python3 data/build_data.py",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "@vercel/functions": "^3.10.4"
+  },
+  "overrides": {
+    "@vercel/cli-config": {
+      "zod": "4.6.7"
+    }
+  }
+}
