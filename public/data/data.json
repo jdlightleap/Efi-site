@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-27 20:45",
+ "built_at": "2026-10-28 07:41",
  "input_mode": "committed exports in data/source/",
  "networks": [
   {
@@ -89,55 +89,55 @@
  ],
  "weather": {
   "available": true,
-  "mode": "partial",
-  "caption": "Jan 2025 only (1 month, test sample) \u2014 days in that period, not an annual figure. Full 2015\u20132025 history is loading; rerun the build to update.",
-  "short": "in Jan 2025 (test month)",
+  "mode": "annual",
+  "caption": "Days in 2025 (one complete year), area mean over each network\u2019s sites. Earlier years (2015 onward) are still loading; rerun the build to update.",
+  "short": "in 2025",
   "mixed_periods": false,
   "metrics": {
    "gust20": {
-    "enwl": 1.21,
-    "gb": 2.55,
-    "nged": 3.28,
-    "npg": 1.22,
-    "spen": 1.61,
-    "ssen_d": 4.52,
-    "ukpn": 5.35
+    "enwl": 17.11,
+    "gb": 16.84,
+    "nged": 15.42,
+    "npg": 13.5,
+    "spen": 16.35,
+    "ssen_d": 18.57,
+    "ukpn": 12.97
    },
    "gust25": {
-    "enwl": 0.55,
-    "gb": 0.69,
-    "nged": 0.69,
-    "npg": 0.48,
-    "spen": 0.62,
-    "ssen_d": 0.74,
-    "ukpn": 0.43
+    "enwl": 1.74,
+    "gb": 3.25,
+    "nged": 1.26,
+    "npg": 0.89,
+    "spen": 3.12,
+    "ssen_d": 2.96,
+    "ukpn": 0.51
    },
    "rain20": {
-    "enwl": 1.46,
-    "gb": 0.47,
-    "nged": 0.8,
-    "npg": 1.12,
-    "spen": 1.0,
-    "ssen_d": 0.54,
-    "ukpn": 0.21
+    "enwl": 7.11,
+    "gb": 3.65,
+    "nged": 4.06,
+    "npg": 3.43,
+    "spen": 4.48,
+    "ssen_d": 3.22,
+    "ukpn": 1.35
    },
    "rain40": {
-    "enwl": 0,
-    "gb": 0,
-    "nged": 0,
-    "npg": 0,
-    "spen": 0,
-    "ssen_d": 0,
-    "ukpn": 0
+    "enwl": 0.52,
+    "gb": 0.15,
+    "nged": 0.3,
+    "npg": 0.16,
+    "spen": 0.59,
+    "ssen_d": 0.08,
+    "ukpn": 0.11
    },
    "hot30": {
-    "enwl": 0,
-    "gb": 0,
-    "nged": 0,
-    "npg": 0,
-    "spen": 0,
-    "ssen_d": 0,
-    "ukpn": 0
+    "enwl": 0.0,
+    "gb": 0.73,
+    "nged": 1.66,
+    "npg": 0.32,
+    "spen": 0.0,
+    "ssen_d": 1.31,
+    "ukpn": 1.83
    }
   },
   "source": "Copernicus C3S ERA5 daily statistics (derived-era5-single-levels-daily-statistics)",

@@ -82,8 +82,13 @@ def weather(rows):
     if not periods: return {"available": False, "caption": "No ERA5 weather loaded yet", "metrics": {}}
     k = sorted(periods)[0]
     if k[0] == "annual":
-        cap = f"Annual mean days per year, {k[1]}–{k[2]} ({k[3]} complete years), area mean over each network’s sites"
-        short = f"per year, {k[1]}–{k[2]} average"
+        if k[3] == 1:
+            cap = (f"Days in {k[1]} (one complete year), area mean over each network’s sites. "
+                   "Earlier years (2015 onward) are still loading; rerun the build to update.")
+            short = f"in {k[1]}"
+        else:
+            cap = f"Annual mean days per year, {k[1]}–{k[2]} ({k[3]} complete years), area mean over each network’s sites"
+            short = f"per year, {k[1]}–{k[2]} average"
     else:
         a, b, n = k[1], k[2], k[3]
         span = f"{MON[a[1]-1]} {a[0]}" if a == b else f"{MON[a[1]-1]} {a[0]}–{MON[b[1]-1]} {b[0]}"

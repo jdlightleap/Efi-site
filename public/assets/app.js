@@ -491,7 +491,7 @@ const mail = () => SITE.contactEmail ? `<a href="mailto:${esc(SITE.contactEmail)
 function about(){
   return `<section class="wrap prose"><h1 tabindex="-1">About EFI</h1>
    <p><b>EFI (energy frontier intelligence)</b> scans public data for emerging technologies and ideas that GB electricity networks could be first to trial. For each signal it pulls together the evidence, what has already been tried, and a concept to test in a discovery workshop.</p>
-   <h2>Early preview</h2><p>This is an early preview for discussion. Scores are draft EFI assessments, models use placeholder assumptions, and some data is still loading (the weather figures currently cover one test month). We’d value your view on what’s useful and what’s missing.</p>
+   <h2>Early preview</h2><p>This is an early preview for discussion. Scores are draft EFI assessments, models use placeholder assumptions, and some data is still loading (the weather figures currently cover one complete year, 2025, and earlier years are still being added). We’d value your view on what’s useful and what’s missing.</p>
    <h2>Balanced across networks</h2><p>EFI applies one transparent rule to every GB network: distribution, transmission and the system operator. It uses public data only. Choose a network at the top of any page to see the same evidence for that network.</p>
    <h2>Lightleap</h2><p>EFI is built by Lightleap, which works with energy networks on innovation discovery and workshops. To talk about a workshop, ${a("/workshops", "plan one here")}, or contact us through ${mail()}.</p>
    <p class="mut">EFI is independent. It isn’t endorsed by any network, Ofgem, NESO or the ENA.</p></section>`;
@@ -543,12 +543,17 @@ function render(focus){
   const r = route();
   if (r.p === "/workshops/outline" && !st.wk.route) { history.replaceState(null, "", "/workshops"); return render(focus); }
   app.innerHTML = r.v();
+  app.querySelectorAll("input[type=range]").forEach(fill);
   document.title = `${r.t} · EFI early preview`;
   document.querySelectorAll(".nav a").forEach(x => { const h = x.getAttribute("href"); const on = h === "/" ? location.pathname === "/" || location.pathname.startsWith("/signals") : location.pathname.startsWith(h); x.toggleAttribute("aria-current", false); if (on) x.setAttribute("aria-current", "page"); });
   $("#netSel").value = st.net;
   if (focus === "page") { window.scrollTo(0, 0); const h = $("h1", app); if (h) h.focus({preventScroll:true}); if (live) live.textContent = r.t; }
   else if (focus && typeof focus === "string") { const el = app.querySelector(focus); if (el) el.focus({preventScroll:true}); }
 }
+/* Range track fill: app.css paints the coloured part of each track to var(--p). Set it from the
+   slider's own min/max/value on render and on every input, so the bar follows the thumb. */
+function fill(t){ const mn = Number(t.min) || 0, mx = Number(t.max), v = Number(t.value), r = mx > mn ? (v - mn) / (mx - mn) : 0;
+  t.style.setProperty("--p", (Math.min(1, Math.max(0, r)) * 100).toFixed(2) + "%"); }
 function go(href){ history.pushState(null, "", href); render("page"); }
 function setNet(id, focusSel){ if (!NET[id]) return; st.net = id; store.set("efi.net", id); render(focusSel); if (live) live.textContent = `Showing ${NET[id].name}`; }
 
@@ -580,6 +585,7 @@ document.addEventListener("change", e => {
 });
 document.addEventListener("input", e => {
   const t = e.target;
+  if (t.type === "range") fill(t);
   if (t.dataset.k) { st.model[t.dataset.k] = Number(t.value); paintStorm(); }
   if (t.dataset.w) { const k = t.dataset.sigw, u = t.dataset.u; st.wi[k][t.dataset.w] = Number(t.value); $("#wv-" + t.dataset.w).textContent = int(t.value) + (u === "%" ? "%" : u ? " " + u : ""); $("#wres").innerHTML = wiHTML(k); }
   if (t.id === "wkNotes") st.wk.notes = t.value;
