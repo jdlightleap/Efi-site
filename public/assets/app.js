@@ -6,6 +6,17 @@ const D = window.EFI_DATA, S = window.EFI_SIGNALS, TILES = window.EFI_TILES, FOO
 const $ = (s, el=document) => el.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const NET = Object.fromEntries(D.networks.map(n => [n.id, n]));
+const KN = window.EFI_KNOWN || {}, GL = window.EFI_GLOSSARY || [];
+/* Network-neutral order everywhere: GB first, then the six DNO groups A–Z, then transmission owners and NESO A–Z. */
+{ const byName = (a, b) => NET[a].name.localeCompare(NET[b].name, "en-GB");
+  D.dnos = [...D.dnos].sort(byName);
+  const rest = D.networks.map(n => n.id).filter(id => id !== "gb" && !D.dnos.includes(id)).sort(byName);
+  D.networks = ["gb", ...D.dnos, ...rest].filter(id => NET[id]).map(id => NET[id]); }
+/* Show the date the data was built, not the visitor's date. */
+const BUILT = (() => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(D.built_at || ""); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).toLocaleDateString("en-GB", {day:"numeric", month:"long", year:"numeric", timeZone:"UTC"}) : String(D.built_at || ""); })();
+const WIDE = () => window.matchMedia && window.matchMedia("(min-width: 861px)").matches;
+/* "More detail" expanders: open by default on wide screens, closed on phones. */
+const more = (sum, body, cls="") => `<details class="more ${cls}"${WIDE() ? " open" : ""}><summary>${sum}</summary><div class="morebody">${body}</div></details>`;
 const lab = id => id ? ((NET[id] || {}).label || id) : "";
 const W = D.weather, M = W.metrics || {}, P = D.projects, PS = P.signals;
 const fmt = (v, d=1) => v == null || isNaN(v) ? "—" : Number(v).toLocaleString("en-GB", {minimumFractionDigits:d, maximumFractionDigits:d});
@@ -60,15 +71,14 @@ const aigz = id => (D.datacentres.aigz || []).filter(z => id === "gb" || z.netwo
 const ord = n => n + (["th","st","nd","rd"][(n%100-20)%10] || ["th","st","nd","rd"][n%100] || "th");
 const wxNet = id => (isDNO(id) || id === "gb") ? id : (id === "neso" ? "gb" : null);
 const projOf = (sig, id) => (PS[sig].items || []).filter(p => id === "gb" || p.owner_network_id === id);
-const projLine = sig => `${int(PS[sig].n)} of ${int(P.total_innovation)} network-innovation projects`;
+/* Search terms as a readable phrase: "drone, robot, UAV, BVLOS or unmanned aerial". */
+const terms = k => { const t = String(k || "").split("|").map(x => x.trim()).filter(Boolean); return t.length > 1 ? t.slice(0, -1).join(", ") + " or " + t[t.length - 1] : (t[0] || ""); };
 
 /* ---------- draft ranking rule: the same rule for every network, every point itemised ---------- */
 function ranked(id){
   const r = role(id);
   return S.map((s, order) => {
     const parts = [{pts: s.rel * 10 + s.ev * 2, t: `Draft EFI scores: relevance ${s.rel}/3 × 10 + evidence ${s.ev}/3 × 2`}];
-    const ps = PS[s.id];
-    if (ps.sub_n === 0) parts.push({pts:3, t:`First-mover gap: no GB network-innovation project found on ${ps.sub_label} (keyword check)`});
     const tier = rk => rk ? (rk.rank <= 2 ? 6 : rk.rank <= 4 ? 3 : 0) : 0;
     if (s.id === "storm") {
       const rk = isDNO(id) ? rankAmong(n => wv("gust20", n), id) : null;
@@ -108,7 +118,7 @@ function inFoot(id, t){ if (id === "gb" || FOOT[id] === "*") return true;
   return (FOOT[id] || []).some(f => { const [n, l] = f.split(":"); return n === t[3] && (!l || l === t[2]); }); }
 function mix(a, b, t){ const p = h => [1,3,5].map(i => parseInt(h.substr(i,2),16)); const A = p(a), B = p(b);
   return "#" + A.map((v,i) => Math.round(v + (B[i]-v)*t).toString(16).padStart(2,"0")).join(""); }
-function lines(l){ const w = l.split(" "), out = [""]; w.forEach(x => { if ((out[out.length-1] + " " + x).trim().length > 13) out.push(x); else out[out.length-1] = (out[out.length-1] + " " + x).trim(); }); return out.filter(Boolean).slice(0, 3); }
+function lines(l){ const w = l.split(" "), out = [""]; w.forEach(x => { if ((out[out.length-1] + " " + x).trim().length > 11) out.push(x); else out[out.length-1] = (out[out.length-1] + " " + x).trim(); }); return out.filter(Boolean).slice(0, 3); }
 function map(id, met){
   const cell = 84, gap = 6, vals = D.dnos.map(n => wv(met, n)).filter(v => v != null), mx = Math.max(...vals, 0), mn = Math.min(...vals, 0);
   let s = `<svg viewBox="0 0 ${4*(cell+gap)} ${7*(cell+gap)}" class="map" role="img" aria-label="Schematic map of licence areas shaded by ${MET[met].l}. Values: ${D.dnos.map(n => lab(n) + " " + fmt(wv(met, n))).join(", ")}">`;
@@ -116,9 +126,9 @@ function map(id, met){
     const k = mx > mn && v != null ? (v - mn) / (mx - mn) : 0, on = inFoot(id, t), dark = k > .5;
     s += `<g class="tile ${on ? "on" : "off"}"><rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="3" fill="${mix("#eeece6", "#2b2b30", k)}"/>
       ${on && id !== "gb" ? `<rect x="${x+1.5}" y="${y+1.5}" width="${cell-3}" height="${cell-3}" rx="2" fill="none" stroke="url(#sp)" stroke-width="3"/>` : ""}
-      ${lines(l).map((ln, j) => `<text x="${x+7}" y="${y+15+j*11}" font-size="9" fill="${dark ? "#fff" : "#1a1a1c"}">${esc(ln)}</text>`).join("")}
-      <text x="${x+7}" y="${y+cell-9}" font-size="15" font-weight="700" fill="${dark ? "#fff" : "#1a1a1c"}">${v == null ? "—" : fmt(v)}</text>
-      <text x="${x+cell-6}" y="${y+cell-9}" font-size="8" text-anchor="end" fill="${dark ? "#ddd" : "#55544f"}">${lab(n)}</text></g>`; });
+      ${lines(l).map((ln, j) => `<text x="${x+6}" y="${y+15+j*12.5}" font-size="11.5" fill="${dark ? "#fff" : "#1a1a1c"}">${esc(ln)}</text>`).join("")}
+      <text x="${x+6}" y="${y+cell-8}" font-size="17" font-weight="700" fill="${dark ? "#fff" : "#1a1a1c"}">${v == null ? "—" : fmt(v)}</text>
+      <text x="${x+cell-5}" y="${y+cell-8}" font-size="10" text-anchor="end" fill="${dark ? "#ddd" : "#55544f"}">${lab(n)}</text></g>`; });
   return s + `<defs><linearGradient id="sp"><stop offset="0" stop-color="#f2b134"/><stop offset=".33" stop-color="#ef7a6d"/><stop offset=".66" stop-color="#b27be8"/><stop offset="1" stop-color="#41b8c4"/></linearGradient></defs></svg>`;
 }
 
@@ -151,7 +161,7 @@ const DIAG = {
 
 /* ---------- KPIs for the featured card ---------- */
 function kpis(s, id){
-  const ps = PS[s.id], L = nm(id), out = [];
+  const L = nm(id), out = [];
   if (s.id === "storm") {
     const g = wv("gust20", wxNet(id)), dn = D.dnos.map(n => wv("gust20", n)).filter(v => v != null);
     out.push(id === "gb" || !wxNet(id) ? [`${fmt(Math.max(...dn)/Math.min(...dn))}×`, `gap in storm gust-days between the windiest and calmest DNO area, ${W.short}`, "ERA5 · CC BY 4.0"]
@@ -171,35 +181,36 @@ function kpis(s, id){
   if (s.id === "flood") { const f = D.flood[id]; out.push(f && f.located ? [pct(f.flagged, f.sites), `of ${L} sites in mapped flood warning or flood map areas`, "EA / SEPA / NRW · OGL v3"] : [int((D.flood.gb || {}).flagged), "GB DNO sites in mapped flood areas", "EA / SEPA / NRW · OGL v3"]); }
   if (s.id === "sst") { const h = D.headroom[id]; const all = D.dnos.map(n => D.headroom[n]).filter(Boolean);
     out.push(h ? [pct(h.lt5, h.sites), `of ${L} listed sites have under 5 MW demand headroom`, h.licence] : [int(all.reduce((a, x) => a + x.lt5, 0)), "DNO sites with under 5 MW demand headroom (methods differ)", "DNO open data"]); }
-  out.push([String(ps.sub_n), `GB network-innovation projects found on ${ps.sub_label}`, `Keyword check · ${projLine(s.id)} match the wider topic`]);
-  return `<div class="kpis">${out.map(k => `<div><b>${k[0]}</b><span>${esc(k[1])}</span><i>${esc(k[2])}</i></div>`).join("")}</div>`;
+  const kn = (KN[s.id] || {}).items || [];
+  if (kn.length) out.push([String(kn.length), `GB network projects already working on this, including ${[...new Map(kn.map(k => [k.lead, k])).values()].map(k => `${k.name} (${lab(k.lead)})`).join(" and ")}`, "Hand-checked · ENA Smarter Networks Portal"]);
+  return `<div class="kpis${out.length === 1 ? " one" : ""}">${out.map(k => `<div><b>${k[0]}</b><span>${esc(k[1])}</span><i>${esc(k[2])}</i></div>`).join("")}</div>`;
 }
 
 /* ---------- views ---------- */
 function chips(id){ return `<div class="chips" role="group" aria-label="Show for network">${D.networks.map(n => `<button type="button" class="chip ${n.id === id ? "on" : ""}" data-net="${n.id}" aria-pressed="${n.id === id}" title="${esc(n.name)}">${esc(n.label)}</button>`).join("")}</div>`; }
 function home(){
-  const id = st.net, L = lab(id), list = ranked(id), f = list[0], rest = list.slice(1);
+  const id = st.net, L = lab(id), list = ranked(id), FEAT = "storm", f = list.find(x => x.id === FEAT) || list[0], fpos = list.indexOf(f) + 1, rest = list.filter(x => x !== f);
   return `<section class="wrap home">
-  <div class="hero"><div><div class="date">Early preview · ${new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})} · ${id === "gb" ? "GB view" : esc(NET[id].name)}</div>
-    <h1 tabindex="-1">What’s emerging that<br>${id === "gb" ? "your network" : esc(L)} could be first on</h1></div>
+  <div class="hero"><div><div class="date">Early preview · data built ${esc(BUILT)} · ${id === "gb" ? "GB view" : esc(NET[id].name)}</div>
+    <h1 tabindex="-1">Five emerging ideas<br>${id === "gb" ? "GB networks" : esc(L)} could test next</h1></div>
     <div class="legend">Every signal carries two separate draft scores.<br><b>Relevance</b> how much it matters to networks · <b>Evidence</b> how well public data backs it today</div></div>
   ${chips(id)}
-  <div class="legendl" aria-label="Labels used on this site">${LBL.od} figure from a named public dataset ${LBL.dr} EFI’s own judgement ${LBL.il} placeholder maths ${LBL.gp} not yet available</div>
+  <details class="legendl"><summary>What the labels mean</summary><div>${LBL.od} figure from a named public dataset ${LBL.dr} EFI’s own judgement ${LBL.il} placeholder maths ${LBL.gp} not yet available</div></details>
   <div class="grid">
-   <article class="feat" aria-labelledby="f-h"><span class="fm">${PS[f.id].sub_n === 0 ? "First-mover gap" : esc(f.area)}</span>
-    <div class="kick">#1 for ${esc(nm(id))} ${LBL.dr}</div>
+   <article class="feat" aria-labelledby="f-h"><span class="fm">${esc(f.area)}</span>
+    <div class="kick">Featured · ranked #${fpos} of ${list.length} for ${esc(nm(id))} ${LBL.dr}</div>
     <h2 class="fh" id="f-h">${esc(f.benefit)}</h2><div class="fs">${esc(f.title)}</div>
     <div class="tags">${tag("Relevance", f.rel, f.rel + "/3")}${tag("Evidence", f.ev, f.evl)}</div>${hz(f.hz)}
     ${kpis(f, id)}
     <details class="why"><summary><b>Why ranked here</b> draft score ${f.score}</summary>${whyList(f, false)}</details>
     <div class="ctas">${a(sigHref(f), "See the concept", "btn")} <a class="btn2" href="/workshops" data-sig="${f.id}">Plan a workshop</a></div></article>
-   ${rest.map((s, i) => `<article class="card link" aria-labelledby="c-${s.id}">
-     <div class="ch"><span class="ico">${ic(s.icon)}</span><span class="num">#${i+2} · ${esc(s.area)}</span></div>
+   ${rest.map(s => `<article class="card link" aria-labelledby="c-${s.id}">
+     <div class="ch"><span class="ico">${ic(s.icon)}</span><span class="num">#${list.indexOf(s) + 1} · ${esc(s.area)}</span></div>
      <h2 class="cb" id="c-${s.id}"><a class="cl" href="${sigHref(s)}">${esc(s.benefit)}</a></h2><div class="ct">${esc(s.title)}</div>
      <div class="why"><b>Why ranked here</b> draft score ${s.score}${whyList(s, false)}</div>
      <div class="foot"><div class="tags">${tag("Relevance", s.rel, s.rel + "/3")}${tag("Evidence", s.ev, s.evl)}</div>${hz(s.hz)}</div></article>`).join("")}
   </div>
-  <div class="note">One draft rule ranks the signals for every network: draft EFI scores, plus a +3 first-mover bonus when no GB project matches the signal’s specific focus, plus that network’s public exposure figures where we have them. Ties go to higher relevance, then evidence, then list order. Every point is listed under “Why ranked here”. Data built ${esc(D.built_at)}. ${a("/sources", "Sources and licences")}.</div>
+  <div class="note">One draft rule ranks the signals for every network: draft EFI scores, plus that network’s public exposure figures where we have them. Ties go to higher relevance, then evidence, then list order. Every point is listed under “Why ranked here”. The featured signal is the one we’re testing first in this preview; it isn’t always ranked first. Data built ${esc(BUILT)}. ${a("/sources", "Sources and licences")}.</div>
   </section>`;
 }
 
@@ -209,15 +220,15 @@ function stormWhy(id){
   const mx = Math.max(...D.dnos.map(x => wv("gust20", x) || 0));
   const dnoBars = D.dnos.map(n => { const v = wv("gust20", n); return `<div class="gb ${n === id ? "sel" : ""}"><div class="gbw"><div style="height:${mx ? v/mx*90 : 0}px"></div></div><b>${fmt(v)}</b><span>${lab(n)}</span></div>`; }).join("");
   const iis = D.faults.iis[id], fo = D.faults.open_fault_data[id], ew = D.faults.enwl_weather_incidents;
-  let rel = iis ? `Interruptions Incentive Scheme ${D.faults.iis_period}: <b>${ord(iis.rank)} of 6</b> DNO groups · ${iis.reward_gbp_m >= 0 ? "reward" : "penalty"} £${fmt(Math.abs(iis.reward_gbp_m))}m`
-          : id === "gb" ? `Interruptions Incentive Scheme ${D.faults.iis_period}: pick a DNO to see its rank` : "The Interruptions Incentive Scheme applies to DNOs only";
+  let rel = iis ? `Interruptions Incentive Scheme (IIS) outcome, ${D.faults.iis_period}: ${iis.reward_gbp_m >= 0 ? "reward" : "penalty"} of <b>£${fmt(Math.abs(iis.reward_gbp_m))}m</b>, before Ofgem’s final adjustments for severe weather`
+          : id === "gb" ? `The Interruptions Incentive Scheme (IIS) rewards or penalises each DNO group on power cuts. Choose a DNO to see its ${D.faults.iis_period} outcome.` : "The Interruptions Incentive Scheme (IIS) applies to DNOs only.";
   if (fo) rel += `<br>Open fault records loaded: ${fo.metrics.length} series` + (id === "enwl" && ew ? ` · <b>${int(ew.value)}</b> weather and environment incidents in ${ew.year}` : " · not yet harmonised for comparison");
   return `<div class="mut">${LBL.od} ${esc(W.caption)}</div>
    ${wid ? "" : `<div class="gapnote">${LBL.gp} ERA5 areas exist for the six DNOs and GB only. ${esc(lab(id))} figures are not split out yet, so GB values are shown for comparison.</div>`}
    <div class="wrs">${rows}</div>
    <div class="sub">Storm gust-days by DNO area <span class="mut">(≥ 20 m/s)</span></div><div class="gbs">${dnoBars}</div>
    ${src(`Generated using Copernicus Climate Change Service information 2026 · ERA5 · CC BY 4.0`)}
-   <div class="sub">Reliability</div><div class="line">${rel}</div>${src(`Ofgem RIIO-ED2 annual report 2024-25 · OGL v3${fo ? " · " + ext(fo.source, "DNO open fault data") : ""}`)}`;
+   <div class="sub">Reliability</div><div class="line">${rel}</div>${src(`${ext(D.faults.iis_source, "Ofgem RIIO-ED2 annual report 2024-25")}, Table 6 · OGL v3${fo ? " · " + ext(fo.source, "DNO open fault data") : ""}`)}`;
 }
 function floodWhy(id){
   const fl = D.flood[id], fs = fl && fl.located ? `<b>${int(fl.flagged)}</b> of ${int(fl.sites)} sites (${pct(fl.flagged, fl.sites)}) in mapped flood warning or flood map areas${fl.partial ? " · some sites have no coordinates and are not checked" : ""}${fl.note ? " · " + esc(fl.note) : ""}`
@@ -225,7 +236,7 @@ function floodWhy(id){
   const mx = Math.max(...D.dnos.map(n => floodShare(n) || 0));
   const b = D.dnos.map(n => { const v = floodShare(n); return `<div class="gb ${n === id ? "sel" : ""}"><div class="gbw"><div style="height:${mx && v ? v/mx*90 : 0}px"></div></div><b>${v == null ? "—" : fmt(v*100,0) + "%"}</b><span>${lab(n)}</span></div>`; }).join("");
   const wid = wxNet(id);
-  return `<div class="line">${LBL.od} ${fs}</div>${fl && fl.located ? src(`${esc(fl.source)} · ${esc(fl.licence)} · checked ${esc(fl.as_of)}`) : ""}
+  return `<div class="line">${LBL.od} ${fs}</div>${fl && fl.located ? src(`${esc(String(fl.source).replace(/ \| /g, "; "))} · ${esc(String(fl.licence).replace(/ \| /g, "; "))} · checked ${esc(fl.as_of)}`) : ""}
    <div class="sub">Share of sites in flood areas, by DNO</div><div class="gbs">${b}</div>
    ${src("Environment Agency, SEPA and Natural Resources Wales flood areas · OGL v3 · DNO site lists from each network’s open data")}
    <div class="sub">Heavy rain</div><div class="kv"><span>Days with ≥ 20 mm rain, ${esc(W.short)}</span><b>${wid ? fmt(wv("rain20", wid)) : "—"}</b><span>Days with ≥ 40 mm rain</span><b>${wid ? fmt(wv("rain40", wid)) : "—"}</b><span>GB, ≥ 20 mm</span><b>${fmt(wv("rain20", "gb"))}</b></div>
@@ -243,15 +254,12 @@ function dcWhy(id){
    <div class="sub">GB picture</div>${facts(g)}`;
 }
 function queueWhy(id){
-  const rows = Object.entries(D.queues).filter(([n, q]) => q.levels.length).map(([n, q]) => q.levels.map(l => `<tr class="${n === id ? "sel" : ""}"><td>${esc(lab(n))}</td><td>${esc(l.label)}</td><td>${int(l.entries)}</td><td>${l.mw ? gw(l.mw) : "—"}</td></tr>`).join("")).join("");
   const q = D.queues[id], gbq = D.datacentres.gb.filter(x => /queue|flexibility/.test(x.label) && !/Data-centre/.test(x.label));
-  const mine = id === "gb" ? "" : q && q.levels.length ? `<div class="line">${LBL.od} ${esc(lab(id))} publishes ${q.levels.map(l => `<b>${int(l.entries)}</b> entries in its ${esc(l.label)}`).join(" and ")}.</div>${src(q.levels.map(l => ext(l.url, esc(l.label))).join(" · ") + ` · loaded ${esc(q.levels[0].loaded)}`)}`
+  const loaded = D.networks.filter(n => (D.queues[n.id] || {levels:[]}).levels.length).map(n => esc(n.label));
+  const mine = id === "gb" ? `<div class="line">Choose a network at the top of the page to see its own published queue registers. Registers are loaded for ${loaded.join(", ")}.</div>` : q && q.levels.length ? `<div class="line">${LBL.od} ${esc(lab(id))} publishes ${q.levels.map(l => `<b>${int(l.entries)}</b> entries in its ${esc(l.label)}`).join(" and ")}.</div>${src(q.levels.map(l => ext(l.url, esc(l.label))).join(" · ") + ` · loaded ${esc(q.levels[0].loaded)}`)}`
      : `<div class="gapnote">${LBL.gp} ${esc((q && q.note) || "No published connection-queue register loaded for " + lab(id) + " yet.")}</div>`;
   return `${mine}
-   <div class="sub">Published queue registers</div>
-   <div class="gapnote">Registers differ in scope (generation, demand, embedded, aggregated) and are not comparable between networks. Counts are register rows, not unique projects.</div>
-   <table class="asm"><tr><th>Network</th><th>Register</th><th>Rows</th><th>Capacity</th></tr>${rows}</table>
-   ${src(`${LBL.od} Each network’s open data portal, loaded ${esc((D.queues.nged.levels[0] || {}).loaded || "")} · licences on the Sources page`)}
+   <div class="gapnote">We don’t show networks’ registers side by side. They differ in scope (generation, demand, embedded, aggregated), so the counts aren’t comparable. Counts are register rows, not unique projects.</div>
    <div class="sub">GB demand queues</div><div class="kv">${gbq.map(x => `<span>${esc(x.label)}</span><b>${x.unit === "%" ? fmt(x.value,0) + "%" : gw(x.value)}</b>`).join("")}</div>
    ${src(`${LBL.od} ` + [...new Set(gbq.map(x => esc(x.source) + " · " + esc(x.licence)))].join(" · "))}`;
 }
@@ -268,17 +276,41 @@ function sstWhy(id){
 }
 const WHY = {storm:stormWhy, flood:floodWhy, dcflex:dcWhy, queue:queueWhy, sst:sstWhy};
 function whyPanel(s, id){
-  return `<section class="card why-net" aria-labelledby="why-h"><div class="cth"><h2 class="h3" id="why-h">Why ${id === "gb" ? "your network" : esc(lab(id))}</h2><span class="mut">${id === "gb" ? "GB view" : esc(NET[id].name)}</span></div>${WHY[s.id](id)}</section>`;
+  return `<section class="card why-net" aria-labelledby="why-h"><div class="cth"><h2 class="h3" id="why-h">Why ${id === "gb" ? "your network" : esc(lab(id))}</h2><span class="mut">${id === "gb" ? "GB view" : esc(NET[id].name)}</span></div>${more("More detail: the public figures", WHY[s.id](id))}</section>`;
 }
 function tried(s, id){
-  const ps = PS[s.id], own = projOf(s.id, id), list = (own.length ? own : ps.items).slice(0, 6);
-  const by = Object.entries(ps.by_owner).sort((a,b) => b[1]-a[1]).map(([k, v]) => `${k === "none" ? "owner not named" : esc(lab(k))} ${v}`).join(" · ");
-  return `<section class="card tried" aria-labelledby="tried-h"><div class="cth"><h2 class="h3" id="tried-h">What’s been tried</h2>${LBL.od}</div>
-   <div class="line"><b>${int(ps.n)}</b> of ${int(P.total_innovation)} GB network-innovation projects (${int(P.total)} portal records) match ${esc(ps.kw_label)}. <b>${int(ps.sub_n)}</b> are on ${esc(ps.sub_label)}.</div>
+  const ps = PS[s.id], kn = KN[s.id] || {}, items = kn.items || [], own = projOf(s.id, id), list = (own.length ? own : ps.items).slice(0, 6);
+  const by = Object.entries(ps.by_owner).sort((a,b) => b[1]-a[1] || (a[0] === "none") - (b[0] === "none") || lab(a[0]).localeCompare(lab(b[0]))).map(([k, v]) => `${k === "none" ? "lead network not recorded" : esc(lab(k))} ${v}`).join(" · ");
+  const known = `<div class="sub">GB work we know of <span class="lbl od">Hand-checked</span></div>
+   ${kn.note ? `<div class="line">${esc(kn.note)}</div>` : ""}
+   ${items.map(k => `<div class="tr"><b>${ext(k.url, esc(k.name))}</b><span>${esc(lab(k.lead))} · ${esc(k.fund)}${k.cost ? " · " + esc(k.cost) : ""} · ${esc(k.dates)} · ${esc(k.ref)}</span><span class="tw">${esc(k.what)}</span></div>`).join("")}
+   ${items.length ? src("Checked by hand against each project’s public page, 28 October 2026.") : ""}`;
+  const search = `<div class="line"><b>${int(ps.n)}</b> of ${int(P.total_innovation)} GB network-innovation projects (${int(P.total)} portal records) mention ${esc(terms(ps.kw_label))}. A keyword search is a starting point, not a complete list: it misses projects that use other words, and it can’t prove nobody has tried something.</div>
    <div class="mut" style="margin-top:4px">By lead network: ${by || "—"}</div>
-   ${id !== "gb" && !own.length ? `<div class="line mut">No ${esc(lab(id))}-led project found by the keyword check, so GB examples are shown.</div>` : ""}
-   ${list.map(p => `<div class="tr"><b>${ext(p.url, esc(p.name))}</b><span>${esc(p.owner_network_id ? lab(p.owner_network_id) : "Owner not named")} · ${esc(p.funding_stream || "")} · ${esc(p.status || "")}${p.start_date ? ", " + String(p.start_date).slice(0,4) : ""}${p.sub ? " · specific match" : ""}</span></div>`).join("")}
-   ${src(`${esc(P.source)} · ${esc(P.filter)}. A keyword check finds candidates; it can miss projects that use other words.`)}</section>`;
+   ${id !== "gb" && !own.length ? `<div class="line mut">The search found no ${esc(lab(id))}-led project, so GB examples are shown.</div>` : ""}
+   ${list.map(p => `<div class="tr"><b>${ext(p.url, esc(p.name))}</b><span>${esc(p.owner_network_id ? lab(p.owner_network_id) : "Lead network not recorded")} · ${esc(p.funding_stream || "")} · ${esc(p.status || "")}${p.start_date ? ", " + String(p.start_date).slice(0,4) : ""}</span></div>`).join("")}
+   ${src(`${esc(P.source)} · ${esc(P.filter)}.`)}`;
+  return `<section class="card tried" aria-labelledby="tried-h"><div class="cth"><h2 class="h3" id="tried-h">What’s been tried</h2></div>
+   ${known}
+   ${more("More detail: keyword search of the ENA portal", search)}
+   <p class="mut" style="margin-top:10px">Know of a project we’ve missed? ${a("/feedback", "Tell us")}.</p></section>`;
+}
+/* Storm cost line (from the v3 design): public prices and funding caps, with EFI draft ranges labelled as such. */
+function costCard(){
+  const pr = ((KN.storm || {}).items || []).filter(k => k.cost);
+  const KIT = [["DJI Dock 3 with Matrice 4TD drone", "£16,795 inc. VAT", "Heliguy list price, read 28 Oct 2026", "https://checkout.heliguy.com/products/dji-dock-3-with-dji-matrice-4td"]];
+  const FUND = [["SIF Discovery phase cap", "£200k", "Ofgem RIIO-3 SIF governance, Apr 2026", "https://www.ofgem.gov.uk/sites/default/files/2026-04/RIIO-3%20SIF%20Goverance-20260416151551.pdf"],
+    ["SIF Alpha phase cap", "£650k", "Same document", "https://www.ofgem.gov.uk/sites/default/files/2026-04/RIIO-3%20SIF%20Goverance-20260416151551.pdf"],
+    ["Maximum storm compensation per customer, per power cut", "£2,000", "Ofgem, raised from £700 in 2023", "https://www.ofgem.gov.uk/press-release/ofgem-announces-rise-storm-compensation-cap-ps700-ps2000"]];
+  const row = r => `<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td><td>${r[3] ? ext(r[3], esc(r[2])) : esc(r[2])}</td></tr>`;
+  return `<section class="card cost" aria-labelledby="cost-h"><div class="cth"><h2 class="h3" id="cost-h">What it could cost</h2></div>
+   <div class="costl"><div><b>£120k–£200k</b><span>a first discovery project</span>${LBL.dr}</div><div><b>£0.33m–£1.02m</b><span>recent GB storm pilots (StormTriage 2 to VOLT Phase 2)</span>${LBL.dr}</div><div><b>£16,795</b><span>a drone dock and drone, list price inc. VAT</span>${LBL.od}</div></div>
+   <p class="mut" style="margin-top:8px">The ranges are EFI draft estimates for discussion, not quotes. The discovery range runs from typical small studies up to the SIF Discovery cap.</p>
+   ${more("More detail: projects, kit prices and funding caps", `<div class="tscroll"><table class="asm"><caption class="sub">GB storm projects</caption><tr><th>Project</th><th>Cost</th><th>Lead · dates</th></tr>${pr.map(k => row([k.name, k.cost, lab(k.lead) + " · " + k.fund + " · " + k.dates, k.url])).join("")}</table></div>
+     <div class="tscroll"><table class="asm"><caption class="sub">Kit</caption><tr><th>Item</th><th>Price</th><th>Source</th></tr>${KIT.map(row).join("")}<tr><td>Robot dogs, remote operations centres, radar tasking</td><td><b>Quote only</b></td><td>No public list price</td></tr></table></div>
+     <div class="tscroll"><table class="asm"><caption class="sub">Funding and the cost of storms</caption><tr><th>Item</th><th>Amount</th><th>Source</th></tr>${FUND.map(row).join("")}</table></div>
+     ${src(`${LBL.od} Project costs from the ENA Smarter Networks Portal; prices and caps from the sources linked, read 28 October 2026.`)}`)}
+  </section>`;
 }
 function concept(s){
   if (s.concept === "model") { const m = model(), A = st.asm, id = st.net;
@@ -328,18 +360,19 @@ function resHTML(m){
    <span class="illu">Illustrative</span> <span class="rn">Placeholder assumptions, not a forecast.</span>`;
 }
 function signal(s){
-  const id = st.net, L = lab(id), ps = PS[s.id], r = ranked(id), pos = r.findIndex(x => x.id === s.id), me = r[pos];
+  const id = st.net, r = ranked(id), pos = r.findIndex(x => x.id === s.id), me = r[pos];
   return `<section class="wrap sig">
-  <nav class="crumb" aria-label="Breadcrumb"><a href="/">Opportunities</a> › ${esc(s.area)} › ${esc(s.short)} ${id !== "gb" ? `· viewing for <b>${esc(L)}</b>` : ""}</nav>
-  <nav class="signav" aria-label="Signals">${S.map(x => `<a href="${sigHref(x)}" ${x.id === s.id ? 'aria-current="page"' : ""}>${esc(x.short)}</a>`).join("")}</nav>
-  <div class="shero"><div><span class="fm">${ps.sub_n === 0 ? "First-mover gap" : esc(s.area)}</span><h1 tabindex="-1">${esc(s.benefit)}</h1>
+  <nav class="swrow" aria-label="Signals"><a class="back" href="/">All opportunities</a>
+   <details class="sw"><summary><span class="mut">Signal #${pos+1} of ${S.length}</span> <b>${esc(s.short)}</b></summary>
+    <ul>${r.map((x, i) => `<li><a href="${sigHref(x)}"${x.id === s.id ? ' aria-current="page"' : ""}><span class="mut">#${i+1}</span> ${esc(x.short)}</a></li>`).join("")}</ul></details></nav>
+  <div class="shero"><div><div class="date">${esc(s.area)} · ranked #${pos+1} of ${S.length} for ${esc(nm(id))}</div><h1 tabindex="-1">${esc(s.benefit)}</h1>
     <p class="pitch"><b>${esc(s.title)}.</b> ${esc(s.pitch)}</p>
-    <p class="pitch" style="font-size:14.5px"><b>How it links to networks.</b> ${esc(s.link)}</p></div>
+    ${more("More detail: how it links to networks", `<p class="pitch" style="font-size:14.5px">${esc(s.link)}</p>`)}</div>
    <div class="card scores"><div class="tags">${tag("Relevance", s.rel, s.rel + "/3")}${tag("Evidence", s.ev, s.evl)}</div>${hz(s.hz)}
-    <div class="why"><b>Why ranked here</b> #${pos+1} of ${S.length} for ${esc(nm(id))}${whyList(me)}</div>
-    ${src(`${LBL.dr} Relevance, evidence and horizon are draft EFI assessments. ${projLine(s.id)} match this topic; ${ps.sub_n === 0 ? "none" : int(ps.sub_n)} on ${esc(ps.sub_label)}.`)}</div></div>
+    ${more(`Why ranked #${pos+1} of ${S.length} for ${esc(nm(id))}`, `<div class="why">${whyList(me)}</div>`)}
+    ${src(`${LBL.dr} Relevance, evidence and horizon are draft EFI assessments.`)}</div></div>
   <ol class="steps" aria-label="Concept storyboard">${s.steps.map((x, i) => `<li class="step" style="--i:${i}"><div class="sn" aria-hidden="true">0${i+1}</div><span class="ico">${ic(x[0], 26)}</span><b>${esc(x[1])}</b><span>${esc(x[2])}</span></li>`).join("")}</ol>
-  <div class="two"><div class="col">${concept(s)}${useful(s)}</div><div class="col">${whyPanel(s, id)}${tried(s, id)}</div></div>
+  <div class="two"><div class="col">${concept(s)}${s.id === "storm" ? costCard() : ""}${useful(s)}</div><div class="col">${whyPanel(s, id)}${tried(s, id)}</div></div>
   </section>`;
 }
 
@@ -347,9 +380,9 @@ function signal(s){
 const PRIV = `<p class="privnote">We store your answers to improve EFI. Contact details are kept only if you tick the box. See the ${a("/privacy", "privacy notice")}.</p>`;
 function contact(prefix, required){
   return `<fieldset><legend>${required ? "Your details" : "Your details <span class=\"mut\">(optional)</span>"}</legend><div class="frow">
-   <label class="fld">Name <input name="name" autocomplete="name" maxlength="120"></label>
-   <label class="fld">Email${required ? " (required)" : ""} <input name="email" type="email" autocomplete="email" maxlength="200" ${required ? "required" : ""}></label>
-   <label class="fld">Organisation <input name="organisation" autocomplete="organization" maxlength="160"></label></div>
+   <label class="fld">Name <span class="mut">(optional)</span> <input name="name" autocomplete="name" maxlength="120"></label>
+   <label class="fld">Email ${required ? "(required)" : `<span class="mut">(optional)</span>`} <input name="email" type="email" autocomplete="email" maxlength="200" ${required ? "required" : ""}></label>
+   <label class="fld">Organisation <span class="mut">(optional)</span> <input name="organisation" autocomplete="organization" maxlength="160"></label></div>
    <label class="chk"><input type="checkbox" name="consent" value="yes" ${required ? "required" : ""}> <span>${required ? "Lightleap may contact me about this workshop request and store my details for that purpose (required)." : "Lightleap may contact me about my feedback. Without this tick we don’t keep any name, email or organisation."}</span></label></fieldset>
    <div class="hp" aria-hidden="true"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></div>`;
 }
@@ -418,7 +451,7 @@ function evidenceLines(s, id){
   const L = lab(id), wid = wxNet(id), fl = D.flood[id], iis = D.faults.iis[id], ps = PS[s.id], own = projOf(s.id, id), ev = [];
   if (s.id === "storm") {
     ev.push(wid ? `Storm gust-days ≥ 20 m/s: <b>${fmt(wv("gust20", wid))}</b> ${esc(W.short)} (GB ${fmt(wv("gust20","gb"))}). ${esc(W.caption.replace(/\.$/, ""))}. Source: ERA5, CC BY 4.0.` : `ERA5 storm figures aren’t split out for ${esc(L)} yet. GB: ${fmt(wv("gust20","gb"))} gust-days ${esc(W.short)}.`);
-    if (iis) ev.push(`Interruptions Incentive Scheme ${D.faults.iis_period}: ${ord(iis.rank)} of 6 DNO groups (Ofgem).`);
+    if (iis) ev.push(`Interruptions Incentive Scheme outcome ${D.faults.iis_period}: ${iis.reward_gbp_m >= 0 ? "reward" : "penalty"} of £${fmt(Math.abs(iis.reward_gbp_m))}m, before final severe-weather adjustments (Ofgem RIIO-ED2 annual report, Table 6).`);
   }
   if (s.id === "storm" || s.id === "flood") ev.push(fl && fl.located ? `Sites in mapped flood areas: <b>${int(fl.flagged)}</b> of ${int(fl.sites)} (${pct(fl.flagged, fl.sites)}). Source: EA / SEPA / NRW, OGL v3, ${esc(fl.as_of)}.` : `Flood exposure: no site coordinates available for ${esc(L)} yet.`);
   if (s.id === "dcflex") { (D.datacentres.dno[id] || []).forEach(f => ev.push(`${esc(f.label)}: <b>${gw(f.value)}</b> (${esc(f.source)}).`)); const z = aigz(id); ev.push(`AI Growth Zones ${id === "gb" ? "announced in GB" : "in " + esc(L)}: <b>${z.length}</b>${z.length ? " (" + z.map(x => esc(x.name)).join("; ") + ")" : ""} (DSIT).`);
@@ -426,7 +459,8 @@ function evidenceLines(s, id){
   if (s.id === "queue") { const q = D.queues[id]; ev.push(q && q.levels.length ? `${esc(L)} published registers: ${q.levels.map(l => `<b>${int(l.entries)}</b> rows in its ${esc(l.label)}`).join("; ")}. Registers differ in scope.` : `No published queue register loaded for ${esc(L)} yet.`);
     const t = D.datacentres.gb.find(x => /transmission queue \(2025\)/.test(x.label)); if (t) ev.push(`Demand waiting in the GB transmission queue: <b>${gw(t.value)}</b> (${esc(t.source)}).`); }
   if (s.id === "sst") { const h = D.headroom[id]; ev.push(h ? `<b>${int(h.lt5)}</b> of ${int(h.sites)} sites under 5 MW demand headroom (${esc(h.method)}, ${esc(h.licence)}).` : "Substation headroom is published by each DNO; methods differ."); }
-  ev.push(`${projLine(s.id)} match ${esc(ps.kw_label)}, ${own.length} ${id === "gb" ? "listed here" : "led by " + esc(L)}. ${int(ps.sub_n)} on ${esc(ps.sub_label)} (keyword check, ENA Smarter Networks Portal).`);
+  ((KN[s.id] || {}).items || []).forEach(k => ev.push(`Known GB work: ${esc(k.name)} (${esc(lab(k.lead))}, ${esc(k.fund)}${k.cost ? ", " + esc(k.cost) : ""}, ${esc(k.dates)}).`));
+  ev.push(`ENA Smarter Networks Portal keyword search: ${int(ps.n)} of ${int(P.total_innovation)} network-innovation projects mention ${esc(terms(ps.kw_label))}${id === "gb" ? "" : `, ${own.length} led by ${esc(L)}`}. A starting point, not a complete list.`);
   if (s.id === "storm") { const m = model(); ev.push(`Illustrative model with the current slider settings: ${m.s.l.toLowerCase()} storm, restore time ${fmt(m.before,0)} h → ${fmt(m.after)} h. <i>Placeholder assumptions only.</i>`); }
   if (WI[s.id]) { const r = WI[s.id].calc(st.wi[s.id]); ev.push(`Illustrative what-if with the current settings: ${esc(r.head)} ${esc(r.sub)}. <i>Placeholder assumptions only.</i>`); }
   return {ev, own};
@@ -490,22 +524,21 @@ function sources(){
 const mail = () => SITE.contactEmail ? `<a href="mailto:${esc(SITE.contactEmail)}">${esc(SITE.contactEmail)}</a>` : `the ${a("/feedback", "feedback form")}`;
 function about(){
   return `<section class="wrap prose"><h1 tabindex="-1">About EFI</h1>
-   <p><b>EFI (energy frontier intelligence)</b> scans public data for emerging technologies and ideas that GB electricity networks could be first to trial. For each signal it pulls together the evidence, what has already been tried, and a concept to test in a discovery workshop.</p>
+   <p><b>EFI (energy frontier intelligence)</b> scans public data for emerging technologies and ideas that GB electricity networks could trial next. For each signal it pulls together the evidence, what has already been tried, and a concept to test in a discovery workshop.</p>
    <h2>Early preview</h2><p>This is an early preview for discussion. Scores are draft EFI assessments, models use placeholder assumptions, and some data is still loading (the weather figures currently cover one complete year, 2025, and earlier years are still being added). We’d value your view on what’s useful and what’s missing.</p>
-   <h2>Balanced across networks</h2><p>EFI applies one transparent rule to every GB network: distribution, transmission and the system operator. It uses public data only. Choose a network at the top of any page to see the same evidence for that network.</p>
+   <h2>Balanced across networks</h2><p>EFI applies one transparent rule to every GB network: distribution, transmission and the system operator. It uses public data only. Choose a network from the menu on any page to see the same evidence for that network. Networks are always listed in alphabetical order.</p>
    <h2>Lightleap</h2><p>EFI is built by Lightleap, which works with energy networks on innovation discovery and workshops. To talk about a workshop, ${a("/workshops", "plan one here")}, or contact us through ${mail()}.</p>
    <p class="mut">EFI is independent. It isn’t endorsed by any network, Ofgem, NESO or the ENA.</p></section>`;
 }
 function privacy(){
   const ret = SITE.retentionMonths || 12;
-  return `<section class="wrap prose"><h1 tabindex="-1">Privacy notice</h1>
-   ${SITE.privacyReviewed ? "" : `<div class="review" role="note"><b>Draft for review.</b> This notice hasn’t been reviewed yet. Items in [brackets] need confirming before launch.</div>`}
-   <p>This notice explains what we collect on this site, why, and your rights under UK data protection law (UK GDPR and the Data Protection Act 2018).</p>
-   <h2>Who we are</h2><p>The controller is Lightleap Limited (company number 14037950), registered office 82 Oswald Road, Scunthorpe, North Lincolnshire, DN15 7PA. Contact: ${mail()}. [ICO registration number, if applicable.]</p>
+  return `<section class="wrap prose"><div class="date">Early-preview notice</div><h1 tabindex="-1">Privacy notice</h1>
+   <p>This notice covers the early preview of EFI. It explains what we collect on this site, why, and your rights under UK data protection law (UK GDPR and the Data Protection Act 2018). We’ll update it before EFI opens more widely.</p>
+   <h2>Who we are</h2><p>The controller is Lightleap Limited (company number 14037950), registered office 82 Oswald Road, Scunthorpe, North Lincolnshire, DN15 7PA. Contact: ${mail()}.</p>
    <h2>What we collect</h2><ul>
     <li><b>Feedback you send:</b> whether a signal was useful, your comments, the page and network you were viewing, and the time.</li>
-    <li><b>Contact details, only if you tick the consent box:</b> your name, email address and organisation. If you don’t tick it, we don’t keep them.</li>
-    <li><b>Workshop requests:</b> your email address (required), plus name, organisation, timing and the choices you made in the workshop planner.</li>
+    <li><b>Contact details, optional:</b> your name, email address and organisation, only if you choose to give them and tick the consent box. Feedback works without them. If you don’t tick the box, we don’t keep them.</li>
+    <li><b>Workshop requests:</b> your email address (required, so we can reply), plus your name, organisation and timing if you give them, and the choices you made in the workshop planner.</li>
     <li><b>Technical data:</b> our hosting provider processes your IP address to deliver the site and protect it from abuse. We use it briefly in memory to limit repeated submissions. We don’t store it with your feedback.</li></ul>
    <p>Please don’t include sensitive personal information in comments.</p>
    <h2>Why we use it, and our lawful basis</h2><ul>
@@ -514,16 +547,43 @@ function privacy(){
     <li>To keep the site secure: <b>legitimate interests</b>.</li></ul>
    <p>We don’t sell your data, use it for advertising, or add you to a mailing list.</p>
    <h2>Who processes it for us</h2><ul>
-    <li><b>Vercel Inc.</b> hosts the site. Its functions run in London, but Vercel is a US company, so some data may be processed in the USA [confirm transfer safeguards, such as the UK Extension to the EU-US Data Privacy Framework or the UK IDTA].</li>
-    <li><b>Supabase Inc.</b> stores feedback and requests in a database in London (AWS eu-west-2) [confirm transfer safeguards for any support access].</li></ul>
-   <h2>How long we keep it</h2><p>We keep feedback and workshop requests for ${ret} months from when you send them, then delete them [confirm]. If a workshop goes ahead, we may keep the related correspondence for as long as we need it for that work.</p>
+    <li><b>Vercel Inc.</b> hosts the site. Its functions run in London, but Vercel is a US company, so some data may be processed in the USA.</li>
+    <li><b>Supabase Inc.</b> stores feedback and requests in a database in London (AWS eu-west-2). Supabase is also a US company, so support access may come from outside the UK.</li></ul>
+   <p>Where data may leave the UK, we rely on the safeguards these providers offer under UK law. Contact us if you’d like details of the safeguards that apply.</p>
+   <h2>How long we keep it</h2><p>We will delete feedback and workshop requests ${ret} months after you send them. If a workshop goes ahead, we may keep the related correspondence for as long as we need it for that work.</p>
    <h2>Cookies and storage</h2><ul>
     <li><b>efi_preview</b>: a strictly necessary cookie that remembers you entered the preview password. It lasts 30 days and holds no personal data.</li>
     <li><b>efi.net</b>: a browser storage item that remembers the network you last chose. It never leaves your device.</li></ul>
    <p>We don’t use analytics, advertising or tracking cookies, and we don’t load third-party scripts or fonts.</p>
    <h2>Your rights</h2><p>You can ask to see, correct or delete your data, to restrict or object to how we use it, or to withdraw consent. Contact us through ${mail()}. We’ll reply within one month.</p>
    <p>If you’re unhappy with how we’ve handled your data, you can complain to the Information Commissioner’s Office: ${ext("https://ico.org.uk/make-a-complaint/", "ico.org.uk/make-a-complaint")} or 0303 123 1113.</p>
-   <p class="mut">Last updated [date to confirm]. Draft prepared October 2026.</p></section>`;
+   <p class="mut">Last updated 28 October 2026.</p></section>`;
+}
+function glossary(){
+  return `<section class="wrap prose"><h1 tabindex="-1">Glossary</h1><p>Short definitions of the terms and abbreviations used on EFI. Where a term first appears on a page, it links here.</p>
+   <dl class="gloss">${GL.map(([k, full, d]) => `<div id="${k.toLowerCase()}" class="gi"><dt><b>${esc(k)}</b>${full !== k ? ` <span class="mut">${esc(full)}</span>` : ""}</dt><dd>${esc(d)}</dd></div>`).join("")}</dl>
+   <p>Missing a term? ${a("/feedback", "Tell us")}.</p></section>`;
+}
+/* Link the first use of each glossary term on a page to its definition. Text nodes only; never inside links,
+   buttons, form controls, headings, summaries or labels. */
+const GRE = GL.length ? new RegExp("\\b(" + GL.map(g => g[0] === "Gust-day" ? "[Gg]ust-days?" : g[0] === "DNO" ? "DNOs?" : g[0] === "TO" ? "TOs?" : g[0]).join("|") + ")\\b") : null;
+const gkey = w => { const u = w.replace(/s$/, ""); return /^gust-day/i.test(w) ? "gust-day" : (GL.find(g => g[0] === w || g[0] === u) || [w])[0].toLowerCase(); };
+function glossLink(root){
+  if (!GRE || location.pathname === "/glossary" || location.pathname.startsWith("/workshops/outline")) return;
+  const seen = new Set(), skip = "a,button,select,option,textarea,summary,label,h1,h2,svg,.lbl,.kpis,.date,.fm,.kick,.num";
+  const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode: n => n.parentElement.closest(skip) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+  const nodes = []; while (tw.nextNode()) nodes.push(tw.currentNode);
+  nodes.forEach(n => {
+    let t = n.nodeValue, m, frag = null, last = 0;
+    const re = new RegExp(GRE.source, "g");
+    while ((m = re.exec(t))) { const k = gkey(m[1]); if (seen.has(k)) continue; seen.add(k);
+      const g = GL.find(x => x[0].toLowerCase() === k); if (!g) continue;
+      frag = frag || document.createDocumentFragment();
+      frag.appendChild(document.createTextNode(t.slice(last, m.index)));
+      const el = document.createElement("a"); el.href = "/glossary#" + k; el.className = "gl"; el.title = g[1] === g[0] ? g[2] : g[1]; el.textContent = m[1]; frag.appendChild(el);
+      last = m.index + m[1].length; }
+    if (frag) { frag.appendChild(document.createTextNode(t.slice(last))); n.parentNode.replaceChild(frag, n); }
+  });
 }
 const notFound = () => `<section class="wrap prose"><h1 tabindex="-1">Page not found</h1><p>That page doesn’t exist. It may have moved during the preview.</p><p>${a("/", "Go to the opportunities", "btn")}</p></section>`;
 
@@ -534,7 +594,7 @@ function route(){
   const m = p.match(/^\/signals\/([a-z0-9-]+)$/);
   if (m && !SLUG[m[1]] && BYID[m[1]]) { history.replaceState(null, "", `/signals/${BYID[m[1]].slug}`); return route(); } // short alias, e.g. /signals/flood
   if (m && SLUG[m[1]]) return {v: () => signal(SLUG[m[1]]), t: SLUG[m[1]].short, sig: SLUG[m[1]].id};
-  const pages = {"/workshops": [workshop, "Plan a workshop"], "/workshops/outline": [outline, "Workshop outline"], "/sources": [sources, "Sources and licences"], "/about": [about, "About"], "/privacy": [privacy, "Privacy notice"], "/feedback": [feedbackPage, "Feedback"]};
+  const pages = {"/workshops": [workshop, "Plan a workshop"], "/workshops/outline": [outline, "Workshop outline"], "/sources": [sources, "Sources and licences"], "/about": [about, "About"], "/privacy": [privacy, "Privacy notice"], "/feedback": [feedbackPage, "Feedback"], "/glossary": [glossary, "Glossary"]};
   if (pages[p]) return {v: pages[p][0], t: pages[p][1], p};
   return {v: notFound, t: "Page not found", nf: true};
 }
@@ -544,10 +604,13 @@ function render(focus){
   if (r.p === "/workshops/outline" && !st.wk.route) { history.replaceState(null, "", "/workshops"); return render(focus); }
   app.innerHTML = r.v();
   app.querySelectorAll("input[type=range]").forEach(fill);
+  glossLink(app);
+  setMenu(false);
+  const mn = $("#menuNet"); if (mn) mn.textContent = st.net === "gb" ? "All of GB" : lab(st.net);
   document.title = `${r.t} · EFI early preview`;
   document.querySelectorAll(".nav a").forEach(x => { const h = x.getAttribute("href"); const on = h === "/" ? location.pathname === "/" || location.pathname.startsWith("/signals") : location.pathname.startsWith(h); x.toggleAttribute("aria-current", false); if (on) x.setAttribute("aria-current", "page"); });
   $("#netSel").value = st.net;
-  if (focus === "page") { window.scrollTo(0, 0); const h = $("h1", app); if (h) h.focus({preventScroll:true}); if (live) live.textContent = r.t; }
+  if (focus === "page") { const hash = location.hash && document.getElementById(location.hash.slice(1)); if (hash) hash.scrollIntoView(); else window.scrollTo(0, 0); const h = $("h1", app); if (h) h.focus({preventScroll:true}); if (live) live.textContent = r.t; }
   else if (focus && typeof focus === "string") { const el = app.querySelector(focus); if (el) el.focus({preventScroll:true}); }
 }
 /* Range track fill: app.css paints the coloured part of each track to var(--p). Set it from the
@@ -555,11 +618,13 @@ function render(focus){
 function fill(t){ const mn = Number(t.min) || 0, mx = Number(t.max), v = Number(t.value), r = mx > mn ? (v - mn) / (mx - mn) : 0;
   t.style.setProperty("--p", (Math.min(1, Math.max(0, r)) * 100).toFixed(2) + "%"); }
 function go(href){ history.pushState(null, "", href); render("page"); }
+function setMenu(open){ const b = $("#menuBtn"); if (!b) return; b.setAttribute("aria-expanded", String(open)); document.body.classList.toggle("menu-open", open); }
 function setNet(id, focusSel){ if (!NET[id]) return; st.net = id; store.set("efi.net", id); render(focusSel); if (live) live.textContent = `Showing ${NET[id].name}`; }
 
 /* ---------- events ---------- */
 document.addEventListener("click", e => {
   const t = e.target.closest("a,button"); if (!t) return;
+  if (t.id === "menuBtn") { setMenu(t.getAttribute("aria-expanded") !== "true"); return; }
   if (t.dataset.net) { return setNet(t.dataset.net, `[data-net="${t.dataset.net}"]`); }
   if (t.dataset.met) { st.metric = t.dataset.met; render(`[data-met="${t.dataset.met}"]`); return; }
   if (t.dataset.useful) { const f = t.closest("form"); f.querySelector("[name=useful]").value = t.dataset.useful; f.querySelectorAll("[data-useful]").forEach(b => b.setAttribute("aria-pressed", String(b === t))); st.fb[f.querySelector("[name=signal]").value] = {useful: t.dataset.useful}; return; }
@@ -597,8 +662,10 @@ function paintStorm(){
 }
 document.addEventListener("submit", e => { const f = e.target.closest("form.ff"); if (f) { e.preventDefault(); submitForm(f); } else if (e.target.id === "wkForm") e.preventDefault(); });
 window.addEventListener("popstate", () => render("page"));
+document.addEventListener("keydown", e => { if (e.key === "Escape" && document.body.classList.contains("menu-open")) { setMenu(false); const b = $("#menuBtn"); if (b) b.focus(); } });
 
 /* ---------- init ---------- */
-$("#netSel").innerHTML = D.networks.map(n => `<option value="${n.id}">${esc(n.id === "gb" ? "All of GB" : n.name)}</option>`).join("");
+{ const opt = n => `<option value="${n.id}">${esc(n.id === "gb" ? "All of GB" : n.name)}</option>`;
+  $("#netSel").innerHTML = opt(NET.gb) + `<optgroup label="Distribution network operators">${D.dnos.map(id => opt(NET[id])).join("")}</optgroup><optgroup label="Transmission and system operator">${D.networks.filter(n => n.id !== "gb" && !isDNO(n.id)).map(opt).join("")}</optgroup>`; }
 render();
 })();
