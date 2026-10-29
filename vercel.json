@@ -18,7 +18,7 @@
     { "source": "/pilot/", "destination": "/pilot/index.html" },
     { "source": "/prototypes/safety-shield/", "destination": "/prototypes/safety-shield/index.html" },
     { "source": "/prototypes/connection-precheck/", "destination": "/prototypes/connection-precheck/index.html" },
-    { "source": "/((?!api/|pilot(?:/|$)|prototypes(?:/|$)).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|pilot|prototypes).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
@@ -33,7 +33,7 @@
       ]
     },
     {
-      "source": "/((?!pilot(?:/|$)|prototypes(?:/|$)).*)",
+      "source": "/((?!pilot|prototypes).*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
@@ -42,7 +42,17 @@
       ]
     },
     {
-      "source": "/pilot(/.*)?",
+      "source": "/pilot",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'"
+        },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/pilot/(.*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
@@ -51,7 +61,16 @@
       ]
     },
     {
-      "source": "/prototypes(/.*)?",
+      "source": "/prototypes",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/prototypes/(.*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
@@ -66,7 +85,49 @@
       ]
     },
     {
-      "source": "/(pilot|prototypes/safety-shield|prototypes/connection-precheck)(/|/(index\\.html))?",
+      "source": "/pilot/",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/pilot/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/prototypes/safety-shield",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/prototypes/safety-shield/",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/prototypes/safety-shield/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/prototypes/connection-precheck",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/prototypes/connection-precheck/",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/prototypes/connection-precheck/index.html",
       "headers": [
         { "key": "Cache-Control", "value": "no-cache" }
       ]
@@ -90,7 +151,13 @@
       ]
     },
     {
-      "source": "/prototypes/(safety-shield|connection-precheck)/assets/(.*)",
+      "source": "/prototypes/safety-shield/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/prototypes/connection-precheck/assets/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "private, max-age=3600" }
       ]
