@@ -81,6 +81,8 @@ test("published files keep the home page and point at the prototypes", () => {
   assert.match(home, /EFI early preview/);
   assert.doesNotMatch(home, /url=\/pilot\//);
   const pilot = readFileSync("public/pilot/index.html", "utf8");
+  assert.match(pilot, /<h1>Energy Frontier Intelligence for UK Power Networks<\/h1>/);
+  assert.match(pilot, /<ol class="how"/);
   assert.match(pilot, /\/prototypes\/safety-shield\//);
   assert.match(pilot, /\/prototypes\/connection-precheck\//);
   assert.match(pilot, /url\(assets\/fonts\/Bricolage\.woff2\)/);

@@ -1,5 +1,5 @@
 <!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>EFI · UK Power Networks pilot (draft mockup)</title><style>
+<title>EFI · Energy Frontier Intelligence for UK Power Networks (pilot draft)</title><style>
 @font-face{font-family:"Bricolage Grotesque";src:url(assets/fonts/Bricolage.woff2) format("woff2");font-weight:200 800;font-display:swap}
 @font-face{font-family:"Inter";src:url(assets/fonts/Inter.woff2) format("woff2");font-weight:100 900;font-display:swap}
 @font-face{font-family:"Azeret Mono";src:url(assets/fonts/AzeretMono.woff2) format("woff2");font-weight:100 900;font-display:swap}
@@ -445,6 +445,20 @@ textarea{font:inherit;font-size:15px;border:1px solid var(--ln);border-radius:8p
 .ft a{font-weight:600}
 a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 @media (max-width:759px){.who{font-size:14px}.home-lede{display:none}}
+/* v7.1 (29 Oct 2026): compact cards, landing intro */
+.how{list-style:none;counter-reset:h;display:flex;flex-wrap:wrap;gap:6px 18px;margin:8px 0 2px;padding:0;font-size:13.5px;color:#2b2a27}
+.how li{counter-increment:h;display:flex;align-items:center;gap:7px}
+.how li::before{content:counter(h);flex:none;width:20px;height:20px;border-radius:50%;background:var(--teal);color:#fff;font:600 11px/20px var(--mono);text-align:center}
+.how b{font-weight:600}
+.abt{margin:4px 0 6px;font-size:13.5px}.abt a{font-weight:600;display:inline-flex;align-items:center;min-height:var(--tap)}
+.card.cc{gap:6px;min-height:var(--tap);cursor:pointer}
+.card.cc .ct{margin:0}
+.card.cc .ct a{display:block}
+.card.cc .why{margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card.cc .more{margin-top:auto;padding-top:4px;font:600 13px var(--sans,inherit);color:var(--teal);display:inline-flex;align-items:center;gap:4px;min-height:24px}
+.card.cc:hover .more .ar{transform:translateX(2px)}
+.card.cc .more .ar{transition:transform .15s}
+@media (max-width:759px){.how{flex-direction:column;gap:5px}}
 </style></head><body>
 <div class="mock" role="region" aria-label="Mockup notice">MOCKUP · NOT LIVE <span>· nothing you click is saved · UK Power Networks pilot draft · 29 Oct 2026</span></div>
 <header class="top"><div class="tin"><a class="logo" href="#/">EFI<small>Energy Frontier Intelligence</small></a>
@@ -531,17 +545,14 @@ function mets(i){
  <div class="met wn"><span>Why now</span><b>${T(i.whynow_card)}</b></div>
  <div class="met"><span>Experiment cost</span><b>${i.cost?esc(i.cost):'Not yet'}</b></div>
  <div class="met"><span>Proven in energy?</span><b>${bdots(i.bridge)}</b></div></div>`}
-function card(i){scope();return `<article class="card" aria-labelledby="t-${i.id}">
+function oneLine(t){t=String(t||'');const m=t.match(/^.+?[.!?](?=\s+[A-Z0-9“"]|$)/);let a=m?m[0]:t;
+ if(a.length<70&&a.length<t.length){const r=t.slice(a.length).trim();const m2=r.match(/^.+?[.!?](?=\s+[A-Z0-9“"]|$)/);if(m2)a+=' '+m2[0]}return a}
+function card(i){scope();return `<article class="card cc" aria-labelledby="t-${i.id}">
  <div class="ctop"><div class="kick"><span class="tier t-${i.tier}">${tierName(i.tier)}</span>${updBadge(i)}</div>${folBtn(i)}</div>
  <div class="cs">${esc(i.short)}</div>
  <h3 class="ct" id="t-${i.id}"><a href="#/i/${i.id}">${esc(i.title)}</a></h3>
- <div class="why">${T(i.why)}</div>
- ${ukLine(i)}
- ${flags(i)}
- ${mets(i)}
- ${phSlots(i)}
- ${backRow(i)}
- ${fbRow(i)}</article>`}
+ <p class="why">${esc(oneLine(i.why))}</p>
+ <span class="more" aria-hidden="true">See more <span class="ar">→</span></span></article>`}
 const sup=i=>i.ex.support+(S.sup.has(i.id)?1:0), xpl=i=>i.ex.explore+(S.exp.has(i.id)?1:0);
 function backRow(i,d){return `<div class="cact${d?' dk':''}"><button type="button" class="bk" data-sup="${i.id}" aria-pressed="${S.sup.has(i.id)}"><span aria-hidden="true">▲</span> ${S.sup.has(i.id)?'Supported':'Support this idea'} <span class="n">${sup(i)}</span></button>
  <button type="button" class="bk" data-exp="${i.id}" aria-pressed="${S.exp.has(i.id)}">${S.exp.has(i.id)?'✓ ':''}I'd explore this <span class="n">${xpl(i)}</span></button></div>`}
@@ -620,16 +631,17 @@ function home(){
  const f=sorted(D.ideas.filter(i=>match(i)));
  let body;
  if(!f.length) body='<div class="empty">No ideas match these filters. <button type="button" class="lnk" data-clrall="1">Clear all</button></div>'+backed();
- else if(S.sort!=='rel') body=dkey()+grid(f)+backed()+survey();
+ else if(S.sort!=='rel') body=grid(f)+backed()+survey();
  else{const ev=f.filter(i=>i.event),hz=f.filter(i=>i.tier==='Horizon'),ot=f.filter(i=>!i.event&&i.tier!=='Horizon');
-  body=(ev.length?`<h2>Ready to explore</h2><div class="h2s">Costed, with the first objection answered.</div>${dkey()}${grid(ev)}`:'')+backed()+survey()
+  body=(ev.length?`<h2>Ready to explore</h2><div class="h2s">Costed, with the first objection answered.</div>${grid(ev)}`:'')+backed()+survey()
   +(ot.length?`<h2>More ideas</h2><div class="h2s">Not yet costed. Spreading ideas suit a short lesson swap.</div>${grid(ot)}`:'')
   +(hz.length?`<h2>Horizon: get ahead</h2><div class="h2s">5–15 years out. News and demos, graded honestly. <a href="#/horizon">About the Horizon tier →</a></div>${grid(hz)}`:'')}
  scope();
  return `<div class="ed">Edition 02 · UK Power Networks pilot · draft for review · research checked 29 Oct 2026</div>
- <h1>Ideas from outside energy, translated for GB networks</h1>
- <p class="who">A Lightleap-run draft for UK Power Networks colleagues. <b>Our ask: back the ideas worth exploring, and tell us what we got wrong.</b> <a href="#/about">About this pilot</a></p>
- <p class="lede">${T('Each card says why the idea matters first. Tap a card for the full story. Underlined words explain themselves.')}</p>
+ <h1>Energy Frontier Intelligence for UK Power Networks</h1>
+ <p class="who">New ideas for UK Power Networks, drawn from breakthroughs in other industries and tried abroad. For colleagues across the business to browse, back the ones worth exploring, and ask for a session to test them.</p>
+ <ol class="how" aria-label="How to use this site"><li><b>Browse</b> the ideas below</li><li><b>Tap a card</b> for the full story</li><li><b>Back it</b> or ask for an “Explore this idea” session</li></ol>
+ <p class="abt"><a href="#/about">About this pilot</a></p>
  ${RET()?whatsNew():''}
  ${filterBar(f.length)}
  ${body}
@@ -641,7 +653,7 @@ function horizon(){
  <p class="lede">${T('These are not ready to buy. They are news, demos and early pilots that could change network work in 5 to 15 years. The “Explore this idea” session is different: instead of scoping a trial, you agree what to watch, what is worth doing now anyway, who to partner with, and what event would make you act.')}</p>
  <div class="hzi"><b>How we grade the evidence</b><div class="gl">${Object.entries(D.grades).map(([k,v])=>`<div><span class="grade g-${k}">${k}</span> ${esc(v.split(': ')[1])}</div>`).join('')}</div>
  <div class="sm" style="margin-top:8px;font-size:12.5px;color:var(--mut)">We grade on what has been shown, not what has been promised. One room-temperature superconductor claim was left out: <a href="#/watch">see the watchlist</a>.</div></div>
- ${filterBar(f.length,true)}<h2>Horizon ideas</h2>${dkey()}${f.length?grid(f):'<div class="empty">No Horizon cards match. <button type="button" class="lnk" data-clrall="1">Clear all</button></div>'}`}
+ ${filterBar(f.length,true)}<h2>Horizon ideas</h2>${f.length?grid(f):'<div class="empty">No Horizon cards match. <button type="button" class="lnk" data-clrall="1">Clear all</button></div>'}`}
 function acc(title,body,open){return `<details class="acc" ${open||S.view==='deep'?'open':''}><summary>${title}</summary><div class="accb">${body}</div></details>`}
 function plan(i){const w=i.ws;
  if(w.fmt==='ahead') return `<div class="plan" id="plan"><h2>“Explore this idea” session</h2>
