@@ -6,12 +6,15 @@ EFI (energy frontier intelligence) by Lightleap. A private early preview listing
 
 ```
 public/            static site (served as-is by Vercel)
-  index.html       single-page app shell (en-GB, noindex, preview banner)
+  index.html       single-page app shell (en-GB, noindex, preview banner). This stays the early preview, not the pilot.
   assets/          app.js (views and router), signals.js (the 5 signal definitions), app.css, config.js (public settings), fonts/ (woff2 subsets + OFL.txt)
   data/            data.json + data.js, baked at build time from data/source (no live DB reads from the browser)
+  pilot/           UK Power Networks pilot (index.html + assets/fonts). Share /pilot/ with that audience.
+  prototypes/      safety-shield/ and connection-precheck/ (the latter loads pc/*.js on demand)
+docs/pilot-v7/     reference only: layout note, fix log, content QA, horizon research. Not served.
 middleware.js      Vercel Routing Middleware: password gate (EFI_PREVIEW_PASSWORD), cookie, noindex
 api/feedback.js    Vercel Function: POST feedback / workshop requests, writes to Supabase server-side
-lib/               auth.js (cookie HMAC, rate limiter, headers), feedback.js (validation + insert)
+lib/               auth.js (cookie HMAC, rate limiter, headers), feedback.js (validation + insert), route-match.js (local path matching for vercel.json)
 sql/012_feedback.sql   migration for the feedback tables. DRAFT, NOT APPLIED
 data/              build_data.py + source/*.sql|json (read-only exports of the efi-open-data project)
 scripts/           dev.mjs (local Vercel emulator + mock Supabase), check.mjs (build check + secret scan), feedback.test.mjs
@@ -22,6 +25,8 @@ QA.md, DEPLOY.md
 
 Routes: `/`, `/signals/<slug>` (storm-resilience, data-centre-connections, connection-queue-triage, flood-monitoring, solid-state-transformers; short ids like `/signals/flood` redirect), `/workshops`, `/workshops/outline` (printable), `/sources`, `/about`, `/privacy`, `/feedback`.
 
+Pilot routes (same password, separate pages): `/pilot/`, `/prototypes/safety-shield/`, `/prototypes/connection-precheck/`. `trailingSlash` is unset so Vercel does not strip those slashes (the prototypes load `assets/` and `pc/` relative to the trailing-slash URL). Requests without the slash redirect to the slashed URL. `/` is still the early preview. Pilot feedback buttons are a mockup: they do not call `/api/feedback`. Reference notes are in `docs/pilot-v7/`.
+
 ## Run locally
 
 ```bash
@@ -31,7 +36,7 @@ npm run dev                 # http://localhost:3000
 EFI_MOCK=1 npm run dev      # force the mock Supabase even if .env has real values
 ```
 
-The dev server applies the same middleware, function, headers and SPA rewrite as `vercel.json`. Rows sent to the mock can be seen at `/__mock/rows` (dev only).
+The dev server applies the same middleware, redirects, function, headers and rewrites as `vercel.json`. Rows sent to the mock can be seen at `/__mock/rows` (dev only).
 
 ## Test and check
 

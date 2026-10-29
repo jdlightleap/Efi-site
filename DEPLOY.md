@@ -66,6 +66,9 @@ Apply it via the Supabase SQL editor, or `supabase db push` from the efi-open-da
 - [ ] Response headers include `X-Robots-Tag: noindex, nofollow, noarchive` and the CSP. `/robots.txt` disallows everything.
 - [ ] `/data/data.json` without the cookie returns 401.
 - [ ] All five signal pages load. Switching network works. No console errors.
+- [ ] `/` is still the early preview (not the UK Power Networks pilot).
+- [ ] Without the cookie, `/pilot/`, `/prototypes/safety-shield/`, `/prototypes/connection-precheck/`, a font under each, and `/prototypes/connection-precheck/pc/AL.js` return the password page (401), not the file.
+- [ ] With the cookie, `/pilot/` loads. The safety-shield and connection-precheck cards open those prototypes and the back links return to the pilot. A postcode search loads a `pc/*.js` chunk. No console errors at 390px and desktop.
 - [ ] Send one test feedback, one signal "Was this useful?" and one workshop request. Check the rows in Supabase Table Editor, then delete the test rows.
 - [ ] Workshop outline prints cleanly (Print / Save as PDF).
 - [ ] Vercel > Logs: no function errors (the function logs only the table name and HTTP status, never the payload or the key).
@@ -80,4 +83,5 @@ Apply it via the Supabase SQL editor, or `supabase db push` from the efi-open-da
 ## Limits to know
 
 - The login and feedback rate limits are in memory per function instance. They're best-effort, not a guarantee. Vercel Firewall rate-limit rules can be added on Pro if abuse appears.
-- Unknown paths show the in-app "Page not found" view with HTTP 200, because of the SPA rewrite.
+- Unknown paths show the in-app "Page not found" view with HTTP 200, because of the SPA rewrite. Paths under `/pilot` and `/prototypes` are not part of that rewrite: a missing file there is a 404, so a bad pilot URL does not fall through to the early preview.
+- `trailingSlash` is not set. It used to be `false`, which would redirect `/pilot/` to `/pilot` and break the prototypes' relative font and postcode URLs. The three pilot paths redirect to their trailing-slash form instead. Other routes are unchanged.

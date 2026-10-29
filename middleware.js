@@ -1,5 +1,9 @@
-// Vercel Routing Middleware: password gate for the whole EFI preview (pages, data and API).
-// Env: EFI_PREVIEW_PASSWORD (required). If it is unset the site stays locked (fail closed).
+// Vercel Routing Middleware: password gate for the whole EFI preview.
+// Covers pages, data, API, and static files, including /pilot/ and /prototypes/**
+// (HTML, fonts and pc/*.js). The matcher excludes only /robots.txt and /favicon.svg.
+// Do not add a "skip files that have an extension" exception: that would publish
+// the pilot assets without the cookie. Env: EFI_PREVIEW_PASSWORD (required).
+// If it is unset the site stays locked (fail closed).
 import { next } from "@vercel/functions";
 import { COOKIE, MAX_AGE, tokenFor, passwordMatches, isAuthed, clientIp, limiter, SECURITY_HEADERS } from "./lib/auth.js";
 

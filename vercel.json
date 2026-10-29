@@ -6,41 +6,35 @@
   "regions": [
     "lhr1"
   ],
-  "trailingSlash": false,
+  "redirects": [
+    { "source": "/pilot", "destination": "/pilot/", "permanent": false },
+    { "source": "/pilot/index.html", "destination": "/pilot/", "permanent": false },
+    { "source": "/prototypes/safety-shield", "destination": "/prototypes/safety-shield/", "permanent": false },
+    { "source": "/prototypes/safety-shield/index.html", "destination": "/prototypes/safety-shield/", "permanent": false },
+    { "source": "/prototypes/connection-precheck", "destination": "/prototypes/connection-precheck/", "permanent": false },
+    { "source": "/prototypes/connection-precheck/index.html", "destination": "/prototypes/connection-precheck/", "permanent": false }
+  ],
   "rewrites": [
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/pilot/", "destination": "/pilot/index.html" },
+    { "source": "/prototypes/safety-shield/", "destination": "/prototypes/safety-shield/index.html" },
+    { "source": "/prototypes/connection-precheck/", "destination": "/prototypes/connection-precheck/index.html" },
+    { "source": "/((?!api/|pilot(?:/|$)|prototypes(?:/|$)).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-        },
-        {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=31536000"
-        },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=31536000" }
+      ]
+    },
+    {
+      "source": "/((?!pilot(?:/|$)|prototypes(?:/|$)).*)",
+      "headers": [
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'"
@@ -48,30 +42,63 @@
       ]
     },
     {
-      "source": "/(index\\.html)?",
+      "source": "/pilot(/.*)?",
       "headers": [
         {
-          "key": "Cache-Control",
-          "value": "no-cache"
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'"
         }
+      ]
+    },
+    {
+      "source": "/prototypes(/.*)?",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/(index\\.html)?",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/(pilot|prototypes/safety-shield|prototypes/connection-precheck)(/|/(index\\.html))?",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
       ]
     },
     {
       "source": "/data/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "private, no-cache"
-        }
+        { "key": "Cache-Control", "value": "private, no-cache" }
       ]
     },
     {
       "source": "/assets/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "private, max-age=3600"
-        }
+        { "key": "Cache-Control", "value": "private, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/pilot/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/prototypes/(safety-shield|connection-precheck)/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/prototypes/connection-precheck/pc/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, max-age=3600" }
       ]
     }
   ]
