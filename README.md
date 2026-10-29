@@ -1,6 +1,6 @@
 # EFI early preview (efi-site)
 
-EFI (energy frontier intelligence) by Lightleap. A private early preview listing five emerging-technology "signals" that GB electricity networks could be first to trial, each with its public evidence. Scores are **draft EFI assessments**, models are **illustrative**.
+EFI (energy frontier intelligence) by Lightleap. A private early preview listing five emerging-technology "signals" that GB electricity networks could trial next, each with its public evidence. Scores are **draft EFI assessments**, models are **illustrative**.
 
 ## Structure
 
