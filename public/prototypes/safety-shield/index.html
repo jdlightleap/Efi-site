@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Provable safety shield · Illustration · EFI mockup</title>
+<meta name="robots" content="noindex">
+<style>
+@font-face{font-family:"Bricolage Grotesque";src:url(assets/fonts/Bricolage.woff2) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:"Inter";src:url(assets/fonts/Inter.woff2) format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Azeret Mono";src:url(assets/fonts/AzeretMono.woff2) format("woff2");font-weight:100 900;font-display:swap}
+:root{--ow:#f7f6f3;--k:#1a1a1c;--mut:#6b6a66;--ln:#e3e1dc;--sp:linear-gradient(90deg,#f2b134 0%,#ef7a6d 33%,#b27be8 66%,#41b8c4 100%);--disp:"Bricolage Grotesque",system-ui,sans-serif;--mono:"Azeret Mono",ui-monospace,monospace;--teal:#14545b;--pur:#7a45c9;--red:#c62f26;--grn:#1d7a43;--amb:#8a5a12;--tap:44px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ow);color:var(--k);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-text-size-adjust:100%;overflow-wrap:break-word}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+.mock{background:var(--k);color:#fff;font:600 10.5px var(--mono);letter-spacing:.05em;padding:6px 18px;text-align:center}
+.mock span{opacity:.65;font-weight:400}
+.top{border-bottom:1px solid var(--ln);background:#fff;position:sticky;top:0;z-index:5}
+.top::after{content:"";display:block;height:3px;background:var(--sp)}
+.tin{max-width:1120px;margin:0 auto;padding:6px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font:800 18px var(--disp);letter-spacing:-.02em;text-decoration:none;display:inline-flex;align-items:center;min-height:var(--tap)}
+.logo small{font:500 10.5px var(--mono);color:var(--mut);margin-left:8px;letter-spacing:.04em}
+.back{font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;min-height:var(--tap);padding:0 4px;white-space:nowrap}
+.logo{flex:none}.back{min-width:0}
+@media (max-width:480px){.back{white-space:normal;text-align:right;line-height:1.25;font-size:12.5px;max-width:52%}.logo{font-size:16px}}
+main{max-width:1120px;margin:0 auto;padding:18px 18px 60px}
+.ed{font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 28px/1.12 var(--disp);letter-spacing:-.02em;margin:8px 0 8px;max-width:760px}
+h2{font:700 20px/1.2 var(--disp);margin:6px 0 6px}
+h3{font:700 16px var(--disp);margin:16px 0 4px}
+.lede{color:#3d3c39;max-width:700px}
+.flags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.flag{font:600 11px var(--mono);letter-spacing:.03em;border-radius:6px;padding:5px 8px;border:1px solid var(--ln);background:#fff}
+.flag.ill{background:#fff6e0;border-color:#f2b134}
+.flag.sh{background:#e6f2f3;border-color:#41b8c4}
+.flag.ne{background:#f1ebfb;border-color:#b27be8}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 6px;margin:16px -18px 0;padding-left:18px;padding-right:18px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid var(--ln);background:#fff;border-radius:999px;padding:0 14px;min-height:var(--tap);font-size:13.5px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.tab .n{font:600 11px var(--mono);color:var(--mut)}
+.tab.on{background:var(--k);border-color:var(--k);color:#fff}
+.tab.on .n{color:#fff;opacity:.7}
+.scn{background:#fff;border:1px solid var(--ln);border-radius:14px;padding:16px;margin-top:8px}
+.story{color:#3d3c39;margin-bottom:10px}
+.lay{display:grid;grid-template-columns:1fr;gap:14px}
+.dia{border:1px solid var(--ln);border-radius:12px;background:#fbfaf8;padding:8px}
+.dia svg{display:block;width:100%;height:auto}
+.dcap{font:600 10.5px var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--mut);padding:2px 4px 6px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.dcap .would{color:var(--red)}
+.leg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--mut);padding:6px 4px 2px}
+.leg i{display:inline-block;width:18px;height:4px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.leg .sq{width:11px;height:11px;border:2px solid var(--k);border-radius:2px}
+.plan{border:1px solid var(--ln);border-radius:12px;padding:12px 14px}
+.plan .ph{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.plan .ph b{font:700 16px var(--disp)}
+.scr{font:600 10px var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--amb)}
+.why{font-size:14px;color:#3d3c39;margin:4px 0 8px}
+.steps{list-style:none;display:flex;flex-direction:column;gap:6px}
+.steps button,.steps .st{width:100%;text-align:left;border:1px solid var(--ln);background:#fff;border-radius:8px;padding:8px 10px;min-height:var(--tap);display:flex;gap:10px;align-items:center;font-size:14px}
+.steps .num{font:700 12px var(--mono);width:22px;height:22px;border-radius:50%;background:var(--ow);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.steps button.on{border-color:var(--k);box-shadow:0 0 0 1px var(--k)}
+.steps .ok .num{background:#dcefe3;color:var(--grn)}
+.steps .bad .num{background:#fbe1df;color:var(--red)}
+.steps .skip{opacity:.5}
+.steps .tag{margin-left:auto;font:600 10.5px var(--mono);white-space:nowrap}
+.steps .ok .tag{color:var(--grn)}.steps .bad .tag{color:var(--red)}
+.start{font-size:12.5px;color:var(--mut);text-decoration:underline;background:none;border:0;min-height:var(--tap);padding:0 2px}
+.btn{border:1px solid var(--k);background:#fff;border-radius:10px;padding:0 16px;min-height:var(--tap);font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn.pri{background:var(--k);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.row .btn{flex:1 1 140px}
+.vd{border-radius:12px;padding:12px 14px;margin-top:12px;border:2px solid}
+.vd.ok{border-color:var(--grn);background:#f0f8f3}
+.vd.no{border-color:var(--red);background:#fdf1f0}
+.vd .vh{font:800 18px var(--disp);display:flex;align-items:center;gap:8px}
+.vd.ok .vh{color:var(--grn)}.vd.no .vh{color:var(--red)}
+.vd .vs{font-size:13.5px;margin:2px 0 6px}
+.rs{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.rs li{background:#fff;border:1px solid var(--ln);border-radius:8px;padding:8px 10px;font-size:14px}
+.rs .rh{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:2px}
+.rid{font:700 11px var(--mono);background:var(--k);color:#fff;border-radius:4px;padding:2px 6px}
+.rid.saf{background:var(--red)}
+.rt{font:600 12.5px var(--mono);color:var(--mut)}
+.as{font:700 11px var(--mono);border:1px solid var(--red);color:var(--red);border-radius:4px;padding:1px 6px}
+.sub{font:600 10.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-top:10px}
+.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:6px}
+.kv div{background:#fff;border:1px solid var(--ln);border-radius:8px;padding:6px 8px;font-size:12.5px;color:var(--mut)}
+.kv b{display:block;font:700 16px var(--disp);color:var(--k)}
+.op{margin-top:12px;border-top:1px dashed var(--ln);padding-top:10px}
+.op .oh{font:700 14px var(--disp)}
+.op p{font-size:13.5px;color:#3d3c39}
+.logd{margin-top:8px;font-size:13.5px;background:#e6f2f3;border-radius:8px;padding:8px 10px}
+.hist{margin-top:10px;border:1px dashed var(--red);border-radius:10px;padding:8px 12px;font-size:13.5px;color:#3d3c39}
+.hist b{color:var(--red)}
+.sbx h3:first-child{margin-top:0}
+.sws{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.sw{border:1px solid var(--ln);background:#fff;border-radius:8px;min-height:var(--tap);padding:4px 10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:13.5px;text-align:left}
+.sw .s{font:700 11px var(--mono)}
+.sw[aria-pressed=true] .s{color:var(--k)}
+.sw[aria-pressed=false] .s{color:var(--mut)}
+.sw.hi{border-color:var(--red);box-shadow:0 0 0 1px var(--red)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--ln);background:#fff;border-radius:999px;min-height:var(--tap);padding:0 12px;font-size:13.5px}
+.seg button[aria-pressed=true]{background:var(--k);color:#fff;border-color:var(--k)}
+.sl{display:flex;align-items:center;gap:10px}
+.sl input{flex:1;min-width:0;height:var(--tap);accent-color:var(--teal)}
+.sl output{font:700 15px var(--mono);min-width:52px;text-align:right}
+.last{font-size:13px;color:var(--mut);margin-top:8px}
+.rules{list-style:none;display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
+.rules li{background:#fff;border:1px solid var(--ln);border-radius:10px;padding:10px 12px;font-size:14px}
+.rules b{font-family:var(--disp)}
+.exp{margin-top:22px;display:grid;grid-template-columns:1fr;gap:10px}
+.box{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:14px 16px}
+.box h2{font-size:17px;margin-top:0}
+.box p,.box li{font-size:14.5px;color:#2d2c2a}
+.box ul{padding-left:18px;margin-top:4px}
+.box li{margin-top:4px}
+.box.pr{border-left:3px solid #b27be8}
+.box.nt{border-left:3px solid var(--red)}
+.src{color:var(--teal);font-weight:600;font-size:13px;display:inline-flex;align-items:center;min-height:var(--tap)}
+.fact{font:600 10px var(--mono);color:var(--mut);letter-spacing:.04em}
+.gl-l{list-style:none;margin-top:8px;display:grid;grid-template-columns:1fr;gap:6px}
+.gl-l li{background:#fff;border:1px solid var(--ln);border-radius:10px;padding:10px 12px;font-size:14px;scroll-margin-top:90px}
+.gl-l li b{font:700 15px var(--disp)}
+.gl-l li .gx{color:var(--teal);font-weight:600}
+.foot{margin-top:24px;font-size:12.5px;color:var(--mut);border-top:1px solid var(--ln);padding-top:12px}
+.term{font:inherit;color:inherit;background:none;border:0;padding:0;border-bottom:1.5px dotted var(--teal);cursor:help;position:relative;line-height:inherit;letter-spacing:inherit;text-transform:inherit}
+.term::after{content:"";position:absolute;left:50%;top:-13px;bottom:-13px;width:max(calc(100% + 28px),44px);transform:translateX(-50%)}
+.term[aria-expanded=true]{background:#d9f0f2}
+.term:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
+.pop{position:absolute;z-index:30;max-width:300px;width:calc(100vw - 28px);background:var(--k);color:#fff;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.45;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.pop[hidden]{display:none}
+.pop b{font:700 15px var(--disp);display:block;padding-right:36px}
+.pop .px{font-size:12.5px;opacity:.75;margin-bottom:4px;display:block}
+.pop a{color:#9fe0e7;font-size:12.5px;display:inline-flex;align-items:center;min-height:var(--tap)}
+.pop .pc{position:absolute;top:2px;right:2px;width:var(--tap);height:var(--tap);border:0;background:none;color:#fff;font-size:18px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hiring{animation:pulse 1.4s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.hiring{animation:none}}
+@media (min-width:860px){
+ h1{font-size:34px}
+ .lay{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:start}
+ .dia{position:sticky;top:76px}
+ .exp{grid-template-columns:1fr 1fr}
+ .exp .wide{grid-column:1/-1}
+ .rules{grid-template-columns:1fr 1fr}
+ .gl-l{grid-template-columns:1fr 1fr}
+ .pop{width:300px}
+ .scn{padding:20px}
+ .tabs{margin:16px 0 0;padding-left:0;padding-right:0}
+}
+
+</style>
+</head>
+<body>
+<div class="mock" role="region" aria-label="Mockup notice">MOCKUP · NOT LIVE <span>· Illustration for discussion · Draft for review</span></div>
+<header class="top"><div class="tin"><a class="logo" href="#">Safety shield<small>Demo</small></a><a class="back" id="backlink" href="/pilot/#/i/E1" data-local="../../design/v6-ukpn-pilot/index.html#/i/E1">← Back to: Provable safety shield</a></div></header>
+<script>/* Back link: /pilot/ on the published site; relative path for local preview (file://, the safety-shield-demo source folder, or ?links=local). */(function(){var a=document.getElementById("backlink");if(location.protocol==="file:"||location.pathname.indexOf("/prototypes/safety-shield-demo/")>-1||/[?&]links=local/.test(location.search))a.href=a.getAttribute("data-local")})()</script>
+<main id="app"><noscript>This demo needs JavaScript to run the checker. Nothing is loaded from the internet.</noscript></main>
+<div id="pop" class="pop" role="dialog" hidden></div>
+<script>
+/* Safety shield checker: illustrative only.
+   A small, deterministic rule checker for switching plans on a made-up radial network.
+   Pure functions, no DOM, so the same code runs in the browser and in node tests. */
+(function (root) {
+'use strict';
+
+/* ---------- Illustrative network (not a real one) ---------- */
+const NETWORK = {
+  name: 'Illustrative 11 kV network (made up)',
+  vBand: { min: 94, max: 106 },            // % of nominal; illustrative band
+  sources: {
+    TA: { name: 'Primary transformer A', node: 'BA', ratingMW: 8 },
+    TB: { name: 'Primary transformer B', node: 'BB', ratingMW: 7 }
+  },
+  sections: {
+    BA: { name: 'Busbar A', bus: true },
+    BB: { name: 'Busbar B', bus: true },
+    A1: { name: 'Section A1', customers: 900 },
+    A2: { name: 'Section A2', customers: 750 },
+    A3: { name: 'Section A3', customers: 620 },
+    B1: { name: 'Section B1', customers: 800 },
+    B2: { name: 'Section B2', customers: 700 },
+    B3: { name: 'Section B3', customers: 560 }
+  },
+  loads: {
+    normal: { A1: 2.0, A2: 1.8, A3: 1.5, B1: 1.6, B2: 1.4, B3: 1.2 },
+    peak:   { A1: 2.4, A2: 2.2, A3: 1.9, B1: 2.0, B2: 1.7, B3: 1.5 }
+  },
+  // Switching devices. Each one sits on a cable with a thermal rating (MW)
+  // and a voltage-drop factor (% of nominal per MW carried).
+  devices: {
+    CBA: { name: 'Circuit breaker A', kind: 'breaker', a: 'BA', b: 'A1', ratingMW: 9, dropPerMW: 0.20 },
+    S1:  { name: 'Switch S1', kind: 'switch', a: 'A1', b: 'A2', ratingMW: 6, dropPerMW: 0.35 },
+    S2:  { name: 'Switch S2', kind: 'switch', a: 'A2', b: 'A3', ratingMW: 5, dropPerMW: 0.40 },
+    NOP: { name: 'Normally open point', kind: 'switch', a: 'A3', b: 'B3', ratingMW: 4, dropPerMW: 0.50 },
+    S4:  { name: 'Switch S4', kind: 'switch', a: 'B3', b: 'B2', ratingMW: 5, dropPerMW: 0.40 },
+    S5:  { name: 'Switch S5', kind: 'switch', a: 'B2', b: 'B1', ratingMW: 6, dropPerMW: 0.35 },
+    CBB: { name: 'Circuit breaker B', kind: 'breaker', a: 'BB', b: 'B1', ratingMW: 9, dropPerMW: 0.20 }
+  }
+};
+
+/* ---------- The rule book: written down, short, testable ---------- */
+const RULES = {
+  R1: { title: 'Thermal limits', text: 'No cable, switch or transformer may carry more than its rating.' },
+  R2: { title: 'Voltage band', text: 'Every energised section must stay between 94% and 106% of nominal voltage.' },
+  R3: { title: 'No backfeed onto a faulted or earthed section', text: 'A section with an unrepaired fault, or with earths applied for a repair crew, must never be energised from any direction.' },
+  R4: { title: 'No paralleling of different sources', text: 'Each live section must be fed from exactly one source by exactly one path. Closing a loop or joining two primary transformers is not allowed in this rule set.' },
+  R5: { title: 'Protection and earthing interlocks', text: 'A switch next to an earthed section is locked open. Earths may only go on a dead, isolated section. A circuit breaker cannot close onto a faulted section.' },
+  R0: { title: 'Plan is well formed', text: 'Every step must name a real device and change its state.' }
+};
+
+const srcName = (l) => l.split('+').map((x) => NETWORK.sources[x].name).join(' and ');
+const dn = (id) => { const d = NETWORK.devices[id]; return d.kind === 'switch' && id !== 'NOP' ? d.name : `${d.name} (${id})`; };
+const round = (x, d = 2) => Math.round(x * 10 ** d) / 10 ** d;
+const clone = (o) => JSON.parse(JSON.stringify(o));
+
+function makeState(opts = {}) {
+  const closed = {};
+  for (const id of Object.keys(NETWORK.devices)) closed[id] = id !== 'NOP';
+  Object.assign(closed, opts.closed || {});
+  const level = opts.level || 'normal';
+  const base = NETWORK.loads[level] || NETWORK.loads.normal;
+  const scale = opts.scale == null ? 1 : opts.scale;
+  const loads = {};
+  for (const [k, v] of Object.entries(base)) loads[k] = round(v * scale, 3);
+  Object.assign(loads, opts.loads || {});
+  return { closed, loads, faulted: [...(opts.faulted || [])], earthed: [...(opts.earthed || [])] };
+}
+
+function adjacency(state) {
+  const adj = {};
+  for (const s of Object.keys(NETWORK.sections)) adj[s] = [];
+  for (const [id, d] of Object.entries(NETWORK.devices)) {
+    if (!state.closed[id]) continue;
+    adj[d.a].push({ to: d.b, dev: id });
+    adj[d.b].push({ to: d.a, dev: id });
+  }
+  return adj;
+}
+
+/* Evaluate one network state against R1 to R4 (R5 is about operations, see checkPlan).
+   lastDevice (optional) names the device just operated, so a loop can be pinned on it. */
+function evaluate(state, lastDevice) {
+  const net = NETWORK, adj = adjacency(state);
+  const violations = [];
+  const srcAt = {};
+  for (const [sid, src] of Object.entries(net.sources)) srcAt[src.node] = sid;
+  // 1. Connected groups of sections through closed devices
+  const comp = {}; const comps = [];
+  for (const s of Object.keys(net.sections)) {
+    if (comp[s] !== undefined) continue;
+    const c = { nodes: [], devs: new Set(), sources: [] }; comps.push(c);
+    const q = [s]; comp[s] = comps.length - 1;
+    while (q.length) {
+      const n = q.shift(); c.nodes.push(n); if (srcAt[n]) c.sources.push(srcAt[n]);
+      for (const e of adj[n]) { c.devs.add(e.dev); if (comp[e.to] === undefined) { comp[e.to] = comps.length - 1; q.push(e.to); } }
+    }
+  }
+  const fedBy = {};            // section -> source id, or 'TA+TB' when paralleled
+  const radialComps = [];
+  for (const c of comps) {
+    if (!c.sources.length) continue;
+    const label = c.sources.join('+');
+    for (const n of c.nodes) fedBy[n] = label;
+    const loop = c.devs.size >= c.nodes.length;   // a tree has nodes-1 edges
+    const blame = lastDevice && c.devs.has(lastDevice) ? lastDevice : [...c.devs].filter((d) => d !== 'CBA' && d !== 'CBB').pop() || [...c.devs][0];
+    if (c.sources.length > 1) {
+      violations.push({ rule: 'R4', asset: blame, msg: `${dn(blame)} would join ${c.sources.map((x) => net.sources[x].name).join(' and ')} in parallel.` });
+    } else if (loop) {
+      violations.push({ rule: 'R4', asset: blame, msg: `${dn(blame)} would close a loop, so some sections would be fed by two paths.` });
+    } else radialComps.push(c);
+  }
+  // 2. Radial load summation and voltage drop for each healthy radial group
+  const flows = {}, tx = {}, volts = {};
+  for (const c of radialComps) {
+    const sid = c.sources[0], root0 = net.sources[sid].node;
+    const parent = {}, order = [root0], seen = { [root0]: true };
+    for (let i = 0; i < order.length; i++) for (const e of adj[order[i]]) if (!seen[e.to]) { seen[e.to] = true; parent[e.to] = { from: order[i], dev: e.dev }; order.push(e.to); }
+    const sub = {};
+    for (let i = order.length - 1; i >= 0; i--) {
+      const n = order[i];
+      sub[n] = (sub[n] || 0) + (state.loads[n] || 0);
+      if (parent[n]) { flows[parent[n].dev] = round(sub[n], 3); sub[parent[n].from] = (sub[parent[n].from] || 0) + sub[n]; }
+    }
+    tx[sid] = round(sub[root0] || 0, 3);
+    volts[root0] = 100;
+    for (const n of order) if (parent[n]) volts[n] = round(volts[parent[n].from] - net.devices[parent[n].dev].dropPerMW * flows[parent[n].dev], 2);
+  }
+  const radial = violations.length === 0;
+  // R3: faulted or earthed sections must be dead
+  for (const s of state.faulted) if (fedBy[s] && !state.earthed.includes(s)) violations.push({ rule: 'R3', asset: s, msg: `${net.sections[s].name} has an unrepaired fault but would be energised from ${srcName(fedBy[s])}.` });
+  for (const s of state.earthed) if (fedBy[s]) violations.push({ rule: 'R3', asset: s, msg: `${net.sections[s].name} has earths applied for a repair crew${state.faulted.includes(s) ? ' and an unrepaired fault' : ''} but would be energised from ${srcName(fedBy[s])}. This is the most dangerous kind of mistake.` });
+
+    for (const sid of Object.keys(net.sources)) if (tx[sid] === undefined && !violations.some((x) => x.rule === 'R4')) tx[sid] = 0;
+    for (const [sid, mw] of Object.entries(tx)) {
+      const r = net.sources[sid].ratingMW;
+      if (mw > r + 1e-9) violations.push({ rule: 'R1', asset: sid, msg: `${net.sources[sid].name} would carry ${round(mw, 1)} MW against a rating of ${r} MW (${Math.round(mw / r * 100)}%).` });
+    }
+    for (const [dev, mw] of Object.entries(flows)) {
+      const r = net.devices[dev].ratingMW;
+      if (mw > r + 1e-9) violations.push({ rule: 'R1', asset: dev, msg: `Cable through ${dn(dev)} would carry ${round(mw, 1)} MW against a rating of ${r} MW (${Math.round(mw / r * 100)}%).` });
+    }
+    for (const [n, v] of Object.entries(volts)) {
+      if (net.sections[n].bus) continue;
+      if (v < net.vBand.min - 1e-9 || v > net.vBand.max + 1e-9) violations.push({ rule: 'R2', asset: n, msg: `${net.sections[n].name} would sit at ${round(v, 1)}% of nominal voltage, outside the ${net.vBand.min}–${net.vBand.max}% band.` });
+    }
+  const rank = { R0: 0, R5: 1, R3: 2, R4: 3, R1: 4, R2: 5 };
+  violations.sort((x, y) => rank[x.rule] - rank[y.rule]);
+  let customersOff = 0; const dead = [];
+  for (const [s, info] of Object.entries(net.sections)) if (!info.bus && !fedBy[s]) { customersOff += info.customers; dead.push(s); }
+  return { radial, paralleled: !radial && violations.some((x) => x.rule === 'R4'), fedBy, flows, tx, volts, violations, customersOff, dead };
+}
+
+/* R5 and R0: is this single operation allowed from this state? */
+function operationViolations(state, step) {
+  const net = NETWORK, v = [];
+  const { op, target } = step;
+  if (op === 'open' || op === 'close') {
+    const d = net.devices[target];
+    if (!d) return [{ rule: 'R0', asset: String(target), msg: `There is no device called ${target}.` }];
+    const want = op === 'close';
+    if (state.closed[target] === want) v.push({ rule: 'R0', asset: target, msg: `${dn(target)} is already ${want ? 'closed' : 'open'}.` });
+    if (want) {
+      for (const s of [d.a, d.b]) if (state.earthed.includes(s)) v.push({ rule: 'R5', asset: target, msg: `${dn(target)} is interlocked: ${net.sections[s].name} next to it has earths applied, so it cannot be closed.` });
+      if (d.kind === 'breaker') for (const s of [d.a, d.b]) if (state.faulted.includes(s)) v.push({ rule: 'R5', asset: target, msg: `${dn(target)} would close straight onto the fault on ${net.sections[s].name}.` });
+    }
+  } else if (op === 'earth' || op === 'unearth') {
+    const s = net.sections[target];
+    if (!s || s.bus) return [{ rule: 'R0', asset: String(target), msg: `There is no section called ${target} that can be earthed.` }];
+    if (op === 'earth') {
+      if (state.earthed.includes(target)) v.push({ rule: 'R0', asset: target, msg: `${s.name} is already earthed.` });
+      const e = evaluate(state);
+      if (e.fedBy[target]) v.push({ rule: 'R5', asset: target, msg: `Earths cannot go on ${s.name} while it is live.` });
+      for (const [id, d] of Object.entries(net.devices)) if ((d.a === target || d.b === target) && state.closed[id]) v.push({ rule: 'R5', asset: id, msg: `${s.name} is not isolated: ${dn(id)} must be open before earths go on.` });
+    } else if (!state.earthed.includes(target)) v.push({ rule: 'R0', asset: target, msg: `${s.name} has no earths to remove.` });
+  } else v.push({ rule: 'R0', asset: String(target), msg: `Unknown operation "${op}".` });
+  return v;
+}
+
+function applyStep(state, step) {
+  const s = clone(state);
+  if (step.op === 'open' && s.closed[step.target] !== undefined) s.closed[step.target] = false;
+  if (step.op === 'close' && s.closed[step.target] !== undefined) s.closed[step.target] = true;
+  if (step.op === 'earth' && !s.earthed.includes(step.target)) s.earthed.push(step.target);
+  if (step.op === 'unearth') s.earthed = s.earthed.filter((x) => x !== step.target);
+  return s;
+}
+
+/* Check a whole multi-step plan. Every intermediate state is checked, not just the end. */
+function checkPlan(initial, steps) {
+  let state = clone(initial);
+  const trace = [];
+  const start = evaluate(state);
+  for (let i = 0; i < steps.length; i++) {
+    const opV = operationViolations(state, steps[i]);
+    const next = applyStep(state, steps[i]);
+    const ev = evaluate(next, steps[i].target);
+    const violations = [...opV, ...ev.violations].map((x) => ({ ...x, step: i + 1 }));
+    trace.push({ step: i + 1, action: steps[i], state: next, result: ev, violations });
+    state = next;
+    if (violations.length) break;   // the shield stops at the first unsafe step
+  }
+  const failing = trace.find((t) => t.violations.length);
+  const end = trace.length ? trace[trace.length - 1].result : start;
+  return {
+    verdict: failing ? 'BLOCK' : 'APPROVE',
+    blockedAtStep: failing ? failing.step : null,
+    reasons: failing ? failing.violations : [],
+    rulesBroken: failing ? [...new Set(failing.violations.map((v) => v.rule))].sort() : [],
+    trace, start,
+    customersOffBefore: start.customersOff,
+    peakCustomersOffDuring: Math.max(start.customersOff, ...trace.map((t) => t.result.customersOff)),
+    customersOffAfter: failing ? null : end.customersOff
+  };
+}
+
+/* Live verdict for a state (sandbox). */
+function checkState(state, lastDevice) {
+  const ev = evaluate(state, lastDevice);
+  return { verdict: ev.violations.length ? 'BLOCK' : 'APPROVE', reasons: ev.violations, result: ev };
+}
+
+/* ---------- Scripted scenarios (scripted to illustrate; a real version would use an AI planner) ---------- */
+const SCENARIOS = [
+  {
+    id: 'approve', tab: 'Approved', title: 'Fault restored safely',
+    story: 'A cable fault on Section A2 has tripped Circuit breaker A. 2,270 customers on A1, A2 and A3 are off. Normal load.',
+    initial: { level: 'normal', faulted: ['A2'], closed: { CBA: false } },
+    plans: [{ label: 'AI plan', why: 'Isolate the fault, restore A1 from Primary A and A3 from Primary B through the normally open point.',
+      steps: [{ op: 'open', target: 'S1' }, { op: 'open', target: 'S2' }, { op: 'close', target: 'CBA' }, { op: 'close', target: 'NOP' }] }]
+  },
+  {
+    id: 'overload', tab: 'Overload', title: 'Blocked: would overload Primary B',
+    story: 'Winter evening peak. A fault on Section A1 has tripped Circuit breaker A. 2,270 customers on A1, A2 and A3 are off.',
+    initial: { level: 'peak', faulted: ['A1'], closed: { CBA: false } },
+    plans: [{ label: 'AI plan', why: 'Isolate A1, then pick up A2 and A3 from Primary B through the normally open point.',
+      steps: [{ op: 'open', target: 'S1' }, { op: 'close', target: 'NOP' }] }]
+  },
+  {
+    id: 'earthed', tab: 'Earthed section', title: 'Blocked: would energise an earthed section',
+    story: 'The A2 fault is isolated, earths are on A2 and a repair crew is working there. A1 and A3 are back on supply. 750 customers on A2 are still off.',
+    initial: { level: 'normal', faulted: ['A2'], earthed: ['A2'], closed: { S1: false, S2: false, NOP: true } },
+    plans: [{ label: 'AI plan', why: 'Restore the last 750 customers by closing Switch S2 to feed A2 from A3.',
+      steps: [{ op: 'close', target: 'S2' }] }]
+  },
+  {
+    id: 'revise', tab: 'AI revises', title: 'Blocked, revised, then approved',
+    story: 'Planned work on Primary transformer A. Move Section A3 (620 customers) over to Primary B before the work. No fault. Normal load.',
+    initial: { level: 'normal' },
+    plans: [
+      { label: 'AI plan, first try', why: 'Close the normally open point first, then open S2, so customers never see a break.',
+        steps: [{ op: 'close', target: 'NOP' }, { op: 'open', target: 'S2' }] },
+      { label: 'AI plan, revised after the block', why: 'Open S2 first, then close the normally open point. A3 customers see a short planned break, but the two primaries are never joined.',
+        steps: [{ op: 'open', target: 'S2' }, { op: 'close', target: 'NOP' }] }
+    ]
+  }
+];
+
+const API = { NETWORK, RULES, SCENARIOS, makeState, evaluate, operationViolations, applyStep, checkPlan, checkState };
+if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.Shield = API;
+})(typeof self !== 'undefined' ? self : this);
+
+</script>
+<script>
+/* Safety shield demo UI. All verdicts come from Shield.checkPlan / Shield.checkState. */
+(function(){
+'use strict';
+const S = window.Shield, NET = S.NETWORK;
+const $ = (q, el = document) => el.querySelector(q);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = (n) => n.toLocaleString('en-GB');
+const SAFETY = new Set(['R3', 'R4', 'R5']);
+
+/* ---------- glossary (same pattern as v6: first use of an acronym is spelled out) ---------- */
+const GLOSS = {
+  AI: { exp: 'artificial intelligence', plain: 'Software that learns patterns from data and makes suggestions or decisions.', kind: 'everyday' },
+  MW: { exp: 'megawatt', plain: 'A million watts. Roughly what a few hundred homes use at peak.', kind: 'acronym' },
+  kV: { exp: 'kilovolt', plain: 'A thousand volts. Local high-voltage cables in Britain mostly run at 11 kV.', kind: 'acronym' },
+  NOP: { exp: 'normally open point', plain: 'A switch kept open between two feeders. Closing it lets one feeder pick up customers from the other.', kind: 'acronym' },
+  LLM: { exp: 'large language model', plain: 'An AI model trained on large amounts of text, like the models behind chat assistants.', kind: 'acronym' },
+  ARIA: { exp: 'Advanced Research and Invention Agency', plain: 'A UK government agency that funds high-risk research.', kind: 'acronym' },
+  PNNL: { exp: 'Pacific Northwest National Laboratory', plain: 'A US government research laboratory.', kind: 'acronym' },
+  SPEN: { exp: 'SP Energy Networks', plain: 'Network company for central and southern Scotland, Merseyside, Cheshire and North Wales.', kind: 'acronym' },
+  HICS: { exp: 'HICS', plain: 'SPEN project on AI controllers with local fail-safe units (2018–22).', kind: 'name' },
+  NIA: { exp: 'Network Innovation Allowance', plain: 'A yearly innovation budget each network company gets from the regulator, Ofgem.', kind: 'acronym' },
+  DESNZ: { exp: 'Department for Energy Security and Net Zero', plain: 'The UK government department for energy.', kind: 'acronym' },
+  RTDS: { exp: 'real-time digital simulator', plain: 'Lab hardware that simulates a power network fast enough to test real control equipment against it.', kind: 'acronym' },
+  ASTM: { exp: 'ASTM International', plain: 'A standards body. Its F3269 standard covers run-time assurance: a simple monitor that can override a complex controller in aircraft.', kind: 'name' },
+  earths: { exp: 'earths', plain: 'Temporary connections to ground that crews fit to a dead section so it cannot become live while they work on it.', kind: 'everyday' },
+  'shadow mode': { exp: 'shadow mode', plain: 'The system runs alongside real operations and records what it would have done, but cannot operate anything.', kind: 'everyday' },
+  'load transfer': { exp: 'load transfer', plain: 'Moving customers from one feeder or substation to another by opening and closing switches.', kind: 'everyday' },
+  'primary transformer': { exp: 'primary transformer', plain: 'The transformer at a primary substation that steps voltage down (for example 33 kV to 11 kV) to feed local high-voltage cables.', kind: 'everyday' }
+};
+const GK = Object.keys(GLOSS).sort((a, b) => b.length - a.length);
+const RX = new RegExp('\\[\\[(' + GK.map((k) => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(s?)\\]\\]', 'g');
+let SCOPE = new Set();
+function T(text) {
+  // text may contain [[TERM]] markers; everything else is escaped
+  let out = '', last = 0; const raw = String(text);
+  raw.replace(RX, (m, term, pl, off) => {
+    out += esc(raw.slice(last, off)); last = off + m.length;
+    const g = GLOSS[term];
+    const btn = `<button type="button" class="term" data-term="${esc(term)}" aria-expanded="false" aria-controls="pop">${esc(term)}${pl}</button>`;
+    if (g.kind === 'acronym' && !SCOPE.has(term)) out += `${esc(g.exp)}${pl} (${btn})`; else out += btn;
+    SCOPE.add(term); return m;
+  });
+  return out + esc(raw.slice(last));
+}
+
+/* ---------- labels ---------- */
+const devName = (id) => NET.devices[id] ? `${NET.devices[id].name}${id === 'NOP' ? '' : ' ' + '(' + id + ')'}`.replace(/Switch (S\d) \(\1\)/, 'Switch $1') : id;
+function actText(a) {
+  if (a.op === 'open') return `Open ${a.target === 'NOP' ? 'the normally open point' : devName(a.target)}`;
+  if (a.op === 'close') return `Close ${a.target === 'NOP' ? 'the normally open point' : devName(a.target)}`;
+  if (a.op === 'earth') return `Put earths on ${NET.sections[a.target].name}`;
+  if (a.op === 'unearth') return `Remove earths from ${NET.sections[a.target].name}`;
+  return a.op + ' ' + a.target;
+}
+const assetName = (id) => NET.devices[id] ? devName(id) : NET.sources[id] ? NET.sources[id].name : NET.sections[id] ? NET.sections[id].name : id;
+
+/* ---------- diagram ---------- */
+const XY = { // section line endpoints
+  A1: [76, 142, 66], A2: [166, 232, 66], A3: [256, 322, 66],
+  B1: [76, 142, 196], B2: [166, 232, 196], B3: [256, 322, 196]
+};
+const DEV = { CBA: [62, 66], S1: [154, 66], S2: [244, 66], NOP: [372, 131], S4: [244, 196], S5: [154, 196], CBB: [62, 196] };
+const COL = { TA: '#14545b', TB: '#7a45c9', par: '#c62f26', dead: '#b9b6ae' };
+function colOf(fed) { if (!fed) return COL.dead; if (fed.includes('+')) return COL.par; return COL[fed]; }
+function svg(state, ev, hi) {
+  hi = hi || new Set();
+  const f = ev.fedBy, o = [];
+  o.push('<svg viewBox="0 0 412 252" role="img" aria-label="Illustrative network diagram: two primary transformers, six cable sections, seven switches">');
+  // links from busbars, tie route
+  const seg = (x1, y1, x2, y2, c, dash, w = 5) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"${dash ? ' stroke-dasharray="5 5"' : ''}/>`;
+  // tie route from A3 to NOP to B3 (coloured by A3/B3 side)
+  o.push(seg(322, 66, 372, 66, colOf(f.A3), !f.A3), seg(372, 66, 372, 122, colOf(f.A3), !f.A3));
+  o.push(seg(372, 140, 372, 196, colOf(f.B3), !f.B3), seg(322, 196, 372, 196, colOf(f.B3), !f.B3));
+  // transformers + busbars
+  for (const [sid, y, bus] of [['TA', 66, 'BA'], ['TB', 196, 'BB']]) {
+    const c = colOf(f[bus]), r = NET.sources[sid], load = ev.tx[sid], h = hi.has(sid);
+    o.push(`<g${h ? ' class="hiring"' : ''}>`);
+    if (h) o.push(`<rect x="4" y="${y - 22}" width="44" height="44" rx="8" fill="none" stroke="#c62f26" stroke-width="3"/>`);
+    o.push(`<circle cx="20" cy="${y}" r="10" fill="none" stroke="${c}" stroke-width="3"/><circle cx="32" cy="${y}" r="10" fill="none" stroke="${c}" stroke-width="3"/></g>`);
+    o.push(seg(42, y, 50, y, c, false, 3), `<line x1="51" y1="${y - 12}" x2="51" y2="${y + 12}" stroke="${c}" stroke-width="4"/>`, seg(51, y, 56, y, c, false, 3));
+    o.push(`<text x="4" y="${y - 28}" class="tl">Primary ${sid.slice(1)}</text>`);
+    o.push(`<text x="4" y="${y + 34}" class="ti"${h ? ' fill="#c62f26" font-weight="700"' : ''}>${load == null ? 'paralleled' : load.toFixed(1) + '/' + r.ratingMW + ' MW'}</text>`);
+  }
+  // sections
+  for (const [s, [x1, x2, y]] of Object.entries(XY)) {
+    const c = colOf(f[s]), h = hi.has(s), mid = (x1 + x2) / 2;
+    o.push(`<g${h ? ' class="hiring"' : ''}>${h ? `<rect x="${x1 - 4}" y="${y - 9}" width="${x2 - x1 + 8}" height="18" rx="6" fill="#fde2df" stroke="#c62f26" stroke-width="2"/>` : ''}${seg(x1, y, x2, y, c, !f[s], 6)}</g>`);
+    o.push(seg(x1 - 10, y, x1, y, colOf(f[s]), !f[s], 3), seg(x2, y, x2 + 10, y, colOf(f[s]), !f[s], 3));
+    o.push(`<text x="${mid}" y="${y - 12}" text-anchor="middle" class="sl">${s}</text>`);
+    const v = ev.volts[s];
+    const hl = h ? ' fill="#c62f26" font-weight="700"' : '';
+    o.push(`<text x="${mid}" y="${y + 24}" text-anchor="middle" class="ti"${hl}>${(state.loads[s] || 0).toFixed(1)} MW</text>`);
+    o.push(`<text x="${mid}" y="${y + 39}" text-anchor="middle" class="ti"${hl}>${f[s] && v != null ? v.toFixed(1) + '%' : f[s] ? 'live' : 'off'}</text>`);
+    if (state.faulted.includes(s)) o.push(`<g transform="translate(${mid + 17},${y - 19})"><path d="M4 -8 L-2 2 L3 2 L-3 12 L8 -1 L3 -1 L8 -8 Z" fill="#c62f26"/></g>`);
+    if (state.earthed.includes(s)) o.push(`<g stroke="#8a5a12" stroke-width="3"><line x1="${mid - 24}" y1="${y}" x2="${mid - 24}" y2="${y - 16}"/><line x1="${mid - 32}" y1="${y - 16}" x2="${mid - 16}" y2="${y - 16}"/><line x1="${mid - 29}" y1="${y - 21}" x2="${mid - 19}" y2="${y - 21}"/><line x1="${mid - 26}" y1="${y - 26}" x2="${mid - 22}" y2="${y - 26}"/></g>`);
+  }
+  // devices
+  for (const [id, [x, y]] of Object.entries(DEV)) {
+    const cl = state.closed[id], h = hi.has(id), br = NET.devices[id].kind === 'breaker';
+    o.push(`<g${h ? ' class="hiring"' : ''}>`);
+    if (h) o.push(`<circle cx="${x}" cy="${y}" r="13" fill="#fde2df" stroke="#c62f26" stroke-width="3"/>`);
+    o.push(`<rect x="${x - 8}" y="${y - 8}" width="16" height="16" rx="${br ? 1 : 4}" fill="${cl ? '#1a1a1c' : '#fff'}" stroke="#1a1a1c" stroke-width="2.5"/></g>`);
+    const lx = id === 'NOP' ? x - 14 : x, anchor = id === 'NOP' ? 'end' : 'middle', ly = id === 'NOP' ? y + 4 : y - 17;
+    o.push(`<text x="${lx}" y="${ly}" text-anchor="${anchor}" class="dl">${id}</text>`);
+  }
+  o.push('<style>.tl{font:700 13px Inter,system-ui,sans-serif;fill:#1a1a1c}.ti{font:500 12.5px Inter,system-ui,sans-serif;fill:#6b6a66}.sl{font:700 14px Inter,system-ui,sans-serif;fill:#1a1a1c}.dl{font:700 11.5px "Azeret Mono",ui-monospace,monospace;fill:#1a1a1c}.fx{font:700 10.5px Inter,system-ui,sans-serif;fill:#c62f26}</style></svg>');
+  return o.join('');
+}
+const LEGEND = `<div class="leg"><span><i style="background:${COL.TA}"></i>Fed from Primary A</span><span><i style="background:${COL.TB}"></i>Fed from Primary B</span><span><i style="background:${COL.par}"></i>Two sources joined</span><span><i style="background:repeating-linear-gradient(90deg,${COL.dead} 0 5px,transparent 5px 9px)"></i>Off</span><span><i class="sq" style="background:#1a1a1c"></i>Closed</span><span><i class="sq" style="background:#fff"></i>Open</span><span style="color:#c62f26">⚡ Fault</span><span style="color:#8a5a12">⏚ Earths on</span></div>`;
+
+/* ---------- reasons ---------- */
+function reasonsHtml(rs) {
+  const saf = rs.filter((r) => SAFETY.has(r.rule) || r.rule === 'R0'), oth = rs.filter((r) => !SAFETY.has(r.rule) && r.rule !== 'R0');
+  const li = (r) => `<li><div class="rh"><span class="rid${SAFETY.has(r.rule) ? ' saf' : ''}">${r.rule}</span><span class="rt">${esc(S.RULES[r.rule].title)}</span><span class="as">${esc(r.asset)}</span></div>${esc(r.msg)}</li>`;
+  let h = '';
+  if (saf.length) h += `<div class="sub">Safety rules broken</div><ul class="rs">${saf.map(li).join('')}</ul>`;
+  if (oth.length) h += `<div class="sub">${saf.length ? 'Also' : 'Limits broken'}</div><ul class="rs">${oth.map(li).join('')}</ul>`;
+  return h;
+}
+function kvHtml(ev) {
+  const vs = Object.entries(ev.volts).filter(([k]) => !NET.sections[k].bus);
+  const lo = vs.length ? vs.reduce((a, b) => (b[1] < a[1] ? b : a)) : null;
+  const tl = (k) => ev.tx[k] == null ? 'n/a' : ev.tx[k].toFixed(1) + ' / ' + NET.sources[k].ratingMW + ' MW';
+  return `<div class="kv"><div><b>${tl('TA')}</b>Primary A load${ev.tx.TA == null ? ' (sources joined, flows unknown)' : ''}</div><div><b>${tl('TB')}</b>Primary B load${ev.tx.TB == null ? ' (sources joined, flows unknown)' : ''}</div><div><b>${lo ? lo[1].toFixed(1) + '%' : '–'}</b>Lowest voltage${lo ? ' (' + lo[0] + ')' : ''}</div><div><b>${fmt(ev.customersOff)}</b>Customers off</div></div>`;
+}
+
+/* ---------- app state ---------- */
+const U = { sc: 0, plan: 0, res: null, view: null, confirmed: null, hist: [] };
+const SB = { closed: S.makeState({}).closed, scale: 1, sit: 'none', last: null, lastV: [] };
+function resetScenario(i) { U.sc = i; U.plan = 0; U.res = null; U.view = null; U.confirmed = null; U.hist = []; }
+
+function scenarioHtml() {
+  const sc = S.SCENARIOS[U.sc], init = S.makeState(sc.initial), plan = sc.plans[U.plan];
+  const r = U.res;
+  // which state to draw
+  let st = init, ev = S.evaluate(init), hi = new Set(), cap = 'Start: now', would = false;
+  if (r && U.view != null && U.view > 0) {
+    const t = r.trace[U.view - 1]; st = t.state; ev = t.result;
+    cap = `After step ${U.view}`;
+    if (t.violations.length) { hi = new Set(t.violations.map((v) => v.asset)); would = true; cap = `Step ${U.view} would do this. Blocked, not done`; }
+  }
+  const stepsHtml = plan.steps.map((a, i) => {
+    let cls = '', tag = '';
+    if (r) {
+      const t = r.trace[i];
+      if (!t) { cls = 'skip'; tag = 'not run'; }
+      else if (t.violations.length) { cls = 'bad'; tag = 'blocked'; }
+      else { cls = 'ok'; tag = 'passes'; }
+    }
+    const inner = `<span class="num">${i + 1}</span><span>${esc(actText(a))}</span>${tag ? `<span class="tag">${tag}</span>` : ''}`;
+    return r && r.trace[i] ? `<li><button type="button" class="${cls}${U.view === i + 1 ? ' on' : ''}" data-view="${i + 1}" aria-label="Show the network after step ${i + 1}">${inner}</button></li>` : `<li><div class="st ${cls}">${inner}</div></li>`;
+  }).join('');
+  let verdict = '';
+  if (r) {
+    if (r.verdict === 'APPROVE') {
+      const end = r.trace[r.trace.length - 1].result;
+      verdict = `<div class="vd ok" role="status"><div class="vh">✓ Approved by the checker</div><div class="vs">All ${Object.keys(S.RULES).length - 1} rules hold after every one of the ${r.trace.length} steps, not just at the end.</div>${kvHtml(end)}
+      <div class="vs" style="margin-top:8px">Customers off: ${fmt(r.customersOffBefore)} before → ${fmt(r.customersOffAfter)} after.${r.peakCustomersOffDuring > r.customersOffBefore ? ` ${fmt(r.peakCustomersOffDuring)} customers see a short planned break part-way through.` : ''}${r.customersOffAfter ? ' The faulted section stays off until it is repaired.' : ''}</div>
+      <div class="op"><div class="oh">Operator decision</div><p>${T('[[shadow mode]]: the checker only approves. A person still confirms, and in this demo nothing is sent anywhere.')}</p>
+      ${U.confirmed ? `<div class="logd" role="status">${U.confirmed === 'yes' ? 'Logged as confirmed by the operator.' : 'Logged as rejected by the operator.'} Shadow mode: nothing was sent to any real network.</div>` : `<div class="row"><button type="button" class="btn pri" data-op="yes">Confirm plan</button><button type="button" class="btn" data-op="no">Reject</button></div>`}</div></div>`;
+    } else {
+      const t = r.trace[r.blockedAtStep - 1];
+      verdict = `<div class="vd no" role="status"><div class="vh">✕ Blocked at step ${r.blockedAtStep}</div><div class="vs"><b>${esc(actText(t.action))}</b> breaks ${r.rulesBroken.length === 1 ? 'a rule' : r.rulesBroken.length + ' rules'}. The plan stops here and nothing is operated.</div>${reasonsHtml(r.reasons)}
+      <div class="op"><div class="oh">Operator decision</div><p>A blocked plan never reaches the operator as an option. The planner has to come back with a different plan.</p>
+      ${sc.plans[U.plan + 1] ? `<div class="row"><button type="button" class="btn pri" data-revise="1">Ask the AI to revise its plan</button></div>` : ''}</div></div>`;
+    }
+  }
+  const hist = U.hist.map((h) => `<div class="hist"><b>${esc(h.label)}: blocked at step ${h.step}</b> (${h.rules.join(', ')}). ${esc(h.first)}</div>`).join('');
+  return `<section class="scn" aria-labelledby="sct">
+  <div class="ed">Scenario ${U.sc + 1} of ${S.SCENARIOS.length}</div><h2 id="sct">${esc(sc.title)}</h2><p class="story">${T(sc.story)}</p>
+  <div class="lay"><figure class="dia"><div class="dcap"><span class="${would ? 'would' : ''}">${esc(cap)}</span><span>Illustrative network, not a real one</span></div>${svg(st, ev, hi)}${LEGEND}</figure>
+  <div>${hist}<div class="plan"><div class="ph"><b>${esc(plan.label)}</b><span class="scr">Scripted to illustrate; a real version would use an AI planner</span></div><p class="why">${T(plan.why)}</p>
+  <ol class="steps">${stepsHtml}</ol>
+  ${r ? `<button type="button" class="start" data-view="0">Show the network before the plan</button>` : `<div class="row"><button type="button" class="btn pri" data-check="1">Run the checker</button></div>`}
+  </div>${verdict}</div></div></section>`;
+}
+
+function sandboxState() {
+  const sit = SB.sit;
+  return S.makeState({ closed: SB.closed, scale: SB.scale, faulted: sit === 'none' ? [] : ['A2'], earthed: sit === 'earth' ? ['A2'] : [] });
+}
+function sandboxHtml() {
+  const st = sandboxState(), live = S.checkState(st, SB.last && SB.last.target), ev = live.result;
+  const reasons = [...SB.lastV, ...live.reasons.filter((x) => !SB.lastV.some((y) => y.rule === x.rule && y.asset === x.asset))];
+  const ok = reasons.length === 0, hi = new Set(reasons.map((x) => x.asset));
+  const sw = Object.keys(NET.devices).map((id) => `<button type="button" class="sw${hi.has(id) ? ' hi' : ''}" data-sw="${id}" aria-pressed="${st.closed[id]}"><span>${esc(devName(id))}</span><span class="s">${st.closed[id] ? 'CLOSED' : 'OPEN'}</span></button>`).join('');
+  const sits = [['none', 'No fault'], ['fault', 'Fault on A2'], ['earth', 'Fault on A2, earths on']].map(([k, l]) => `<button type="button" data-sit="${k}" aria-pressed="${SB.sit === k}">${l}</button>`).join('');
+  return `<section class="scn sbx" aria-labelledby="sbt"><div class="ed">Scenario 5 of 5 · Sandbox</div><h2 id="sbt">Try it yourself</h2>
+  <p class="story">${T('Flip any switch, change the load or add a fault. The checker re-runs on every change. Nothing here is scripted: you are the planner.')}</p>
+  <div class="lay"><figure class="dia"><div class="dcap"><span>Live state</span><span>Illustrative network, not a real one</span></div>${svg(st, ev, hi)}${LEGEND}</figure>
+  <div><h3>Situation</h3><div class="seg">${sits}</div>
+  <h3>Load</h3><div class="sl"><label for="ld" class="rt">Load vs normal</label><input id="ld" type="range" min="50" max="150" step="5" value="${Math.round(SB.scale * 100)}" aria-label="Load as a percentage of normal"><output for="ld">${Math.round(SB.scale * 100)}%</output></div>
+  <h3>Switches</h3><div class="sws">${sw}</div>
+  ${SB.last ? `<div class="last">Last action: ${esc(actText(SB.last))}</div>` : ''}
+  <div class="vd ${ok ? 'ok' : 'no'}" role="status" aria-live="polite"><div class="vh">${ok ? '✓ Checker would approve' : '✕ Checker would block'}</div>
+  <div class="vs">${ok ? 'Every rule holds for this network state.' : 'The checker would refuse a plan that leads here.'}</div>${ok ? kvHtml(ev) : reasonsHtml(reasons) + kvHtml(ev)}</div>
+  <div class="row"><button type="button" class="btn" data-sbreset="1">Reset to normal running</button></div></div></div></section>`;
+}
+
+const RULES_HTML = () => `<ul class="rules">${['R1', 'R2', 'R3', 'R4', 'R5'].map((k) => `<li><span class="rid${SAFETY.has(k) ? ' saf' : ''}">${k}</span> <b>${esc(S.RULES[k].title)}</b><br>${esc(S.RULES[k].text)}</li>`).join('')}</ul>`;
+
+function explainer() {
+  return `<div class="exp">
+  <div class="box"><h2>What this shows</h2><p>${T('An [[AI]] planner suggests how to switch the network, for example to restore customers after a fault. Before anything happens, a separate, much simpler checker tests every step of the plan against written rules. It approves or blocks, and says which rule and which piece of equipment. A person still confirms. The checker never trusts the AI; it only trusts the rules.')}</p></div>
+  <div class="box"><h2>What "provable" means here</h2><p>${T('The rules are short and written down, and the checker is small enough to test completely. Because of that you can show, not just hope, that no plan from the AI can get past them, however clever or wrong the AI is. Here the rules are run against every one of 1,536 combinations of switch positions, faults and load levels. A real version would go further and use formal methods: mathematical proof that the checker code matches the rules.')}</p></div>
+  <div class="box pr wide"><h2>Precedent</h2><ul>
+   <li>${T('<b>State Grid, Changsha (China).</b> The "Guangming" system pairs a power-sector [[LLM]] with a physics model and a rule library. The AI proposes [[load transfer]]s, a dispatcher confirms, then the system carries them out. In use since the end of 2024: more than 2,900 transfers. Its checker is a physics model and rules, <b>not</b> a formal proof.').replace(/&lt;(\/?)b&gt;/g, '<$1b>')} <a class="src" href="https://www.cpem.org.cn/list2/117267.html" target="_blank" rel="noopener">Source: CPEM, 20 Mar 2026 ↗</a></li>
+   <li>${T('[[PNNL]] designed a provable safety filter for grid-forming inverters (2020), shown in simulation only.')} <a class="src" href="https://www.pnnl.gov/publications/transient-safety-filter-design-grid-forming-inverters" target="_blank" rel="noopener">Source: PNNL ↗</a></li>
+   <li>${T('Bb-Simplex, a safety layer for microgrids, was tested on an [[RTDS]] (IEEE Access, 2025). Aviation already has a standard for this pattern: [[ASTM]] F3269, "run-time assurance".')}</li>
+   <li>${T('In Britain, the [[HICS]] project at [[SPEN]] (2018–22, £1.2m) proposed AI controllers with local fail-safe units, without formal verification or a working demonstrator. [[ARIA]] is spending £59m on AI that comes with mathematical safety guarantees.')}</li>
+   <li>${T('UK Power Networks lists its Automated Power Restoration System among innovations now in everyday use. A provable checker would sit in front of exactly that kind of automatic switching, first in [[shadow mode]].')} <a class="src" href="https://smarter.energynetworks.org/media/13mb31kt/ukpn_nia-report-2026.pdf" target="_blank" rel="noopener">Source: NIA annual summary 2026 ↗</a></li>
+  </ul></div>
+  <div class="box nt"><h2>What this demo does NOT prove</h2><ul>
+   <li>The network is made up: 6 sections, 2 transformers, made-up ratings and loads.</li>
+   <li>The power flow is a rough approximation: loads simply add up along each feeder, and voltage drops by a fixed amount per ${T('[[MW]]')} carried. No reactive power, losses, generation, voltage rise or protection settings.</li>
+   <li>The AI plans are scripted, not generated by a real AI.</li>
+   <li>The tests here are exhaustive only for this tiny network. Nothing has been formally proven.</li>
+   <li>Real switching rules are far richer than five rules. Writing them down is the hard part.</li>
+  </ul></div>
+  <div class="box"><h2>How a real experiment would start</h2><p>${T('[[shadow mode]] on historical events: replay one automatic restoration scheme’s past fault events through the checker, with no live control at all. Measure how often it would have vetoed an unsafe or unproven plan, and how often it would have blocked a plan that was in fact fine. Only then think about running it live alongside operators.')}</p>
+  <h3>Cost (from research)</h3><p>${T('About £0.3–1.2m for a first experiment (EFI draft estimate). Comparable projects: AI Compass £329k, RAMS360 £550k, [[SPEN]] [[HICS]] £1.2m. Likely funding route: [[NIA]].')}</p></div>
+  <div class="box wide"><h2>The rule book</h2><p>The checker uses only these five rules (plus a check that every step names a real device). Red rules are about safety; black rules are about limits.</p>${RULES_HTML()}</div>
+  </div>`;
+}
+function glossary() {
+  const keys = Object.keys(GLOSS).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  return `<div class="box" style="margin-top:10px" id="glossary"><h2>Glossary</h2><ul class="gl-l">${keys.map((k) => `<li id="g-${encodeURIComponent(k)}"><b>${esc(k)}</b>${GLOSS[k].exp !== k ? ` <span class="gx">${esc(GLOSS[k].exp)}</span>` : ''}<br>${esc(GLOSS[k].plain)}</li>`).join('')}</ul></div>`;
+}
+
+function render() {
+  SCOPE = new Set();
+  const tabs = [...S.SCENARIOS.map((s, i) => [i, s.tab]), [S.SCENARIOS.length, 'Try it yourself']];
+  const intro = `<div class="ed">Prototype · Illustration</div><h1>Provable safety shield</h1>
+  <p class="lede">${T('An [[AI]] proposes a switching plan. An independent checker tests it against simple, written rules and approves or blocks it, saying exactly why. In [[shadow mode]], nothing operates a real network and a person always confirms.')}</p>
+  <div class="flags"><span class="flag ill">Illustrative network, not a real one</span><span class="flag sh">Shadow mode: operates nothing</span><span class="flag ne">Draft for review · Not endorsed by UK Power Networks</span></div>
+  <div class="tabs" role="tablist" aria-label="Scenarios">${tabs.map(([i, l]) => `<button type="button" role="tab" class="tab${U.sc === i ? ' on' : ''}" aria-selected="${U.sc === i}" data-sc="${i}"><span class="n">${i + 1}</span>${esc(l)}</button>`).join('')}</div>`;
+  const body = U.sc < S.SCENARIOS.length ? scenarioHtml() : sandboxHtml();
+  $('#app').innerHTML = intro + body + explainer() + glossary() + `<p class="foot">Mockup for discussion. Draft for review. Not endorsed by UK Power Networks. Illustrative network and scripted AI plans; the checker logic is real and runs in your browser. No data leaves this page.</p>`;
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('.term');
+  if (t) { e.preventDefault(); e.stopPropagation(); if (popBtn === t) closePop(); else openPop(t); return; }
+  if (e.target.closest('[data-pclose]')) { closePop(true); return; }
+  if (e.target.closest('[data-gl]')) { closePop(); setTimeout(() => { const el = document.getElementById('g-' + encodeURIComponent(e.target.closest('[data-gl]').dataset.gl)); if (el) el.scrollIntoView({ block: 'center' }); }, 30); return; }
+  if (!e.target.closest('#pop')) closePop();
+  const b = e.target.closest('button'); if (!b) return;
+  const d = b.dataset; const sc = S.SCENARIOS[U.sc];
+  if (d.sc != null) { resetScenario(+d.sc); render(); return; }
+  if (d.check) { U.res = S.checkPlan(S.makeState(sc.initial), sc.plans[U.plan].steps); U.view = U.res.blockedAtStep || U.res.trace.length; render(); return; }
+  if (d.view != null) { U.view = +d.view; render(); return; }
+  if (d.op) { U.confirmed = d.op; render(); return; }
+  if (d.revise) { const r = U.res; U.hist.push({ label: sc.plans[U.plan].label, step: r.blockedAtStep, rules: r.rulesBroken, first: r.reasons[0].msg }); U.plan++; U.res = null; U.view = null; U.confirmed = null; render(); return; }
+  if (d.sw) { const prev = sandboxState(); const step = { op: prev.closed[d.sw] ? 'open' : 'close', target: d.sw };
+    SB.lastV = S.operationViolations(prev, step).filter((x) => x.rule !== 'R0'); SB.last = step; SB.closed[d.sw] = !SB.closed[d.sw]; render(); focusSel(`[data-sw="${d.sw}"]`); return; }
+  if (d.sit) { SB.sit = d.sit; SB.lastV = []; SB.last = null; render(); focusSel(`[data-sit="${d.sit}"]`); return; }
+  if (d.sbreset) { SB.closed = S.makeState({}).closed; SB.scale = 1; SB.sit = 'none'; SB.last = null; SB.lastV = []; render(); return; }
+});
+document.addEventListener('input', (e) => { if (e.target.id === 'ld') { SB.scale = +e.target.value / 100; SB.lastV = []; render(); const el = $('#ld'); if (el) el.focus(); } });
+function focusSel(q) { const el = $(q); if (el) el.focus({ preventScroll: true }); }
+
+/* ---------- glossary popover ---------- */
+let popBtn = null;
+function openPop(b) {
+  const k = b.dataset.term, g = GLOSS[k]; if (!g) return;
+  if (popBtn) popBtn.setAttribute('aria-expanded', 'false');
+  popBtn = b; b.setAttribute('aria-expanded', 'true');
+  const p = $('#pop'); p.setAttribute('aria-label', k + ' meaning');
+  p.innerHTML = `<button type="button" class="pc" data-pclose="1" aria-label="Close">✕</button><b>${esc(k)}</b>${g.exp !== k ? `<span class="px">${esc(g.exp)}</span>` : ''}<div>${esc(g.plain)}</div><a href="#glossary" data-gl="${esc(k)}">All terms in the glossary →</a>`;
+  p.hidden = false; const r = b.getBoundingClientRect(), pw = p.offsetWidth, ph = p.offsetHeight;
+  let x = r.left + window.scrollX + r.width / 2 - pw / 2; x = Math.max(window.scrollX + 14, Math.min(x, window.scrollX + document.documentElement.clientWidth - pw - 14));
+  let y = r.bottom + window.scrollY + 8; if (r.bottom + ph + 16 > window.innerHeight && r.top > ph + 16) y = r.top + window.scrollY - ph - 8;
+  p.style.left = x + 'px'; p.style.top = y + 'px';
+}
+function closePop(focusBack) { const p = $('#pop'); if (!p || p.hidden) return; p.hidden = true; if (popBtn) { popBtn.setAttribute('aria-expanded', 'false'); if (focusBack) popBtn.focus(); } popBtn = null; }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePop(true); });
+
+// deep links for screenshots/tests: #s=1..5
+const m = location.hash.match(/s=(\d)/); if (m) resetScenario(Math.min(+m[1] - 1, S.SCENARIOS.length));
+render();
+window.__demo = { U, SB, render };
+})();
+
+</script>
+</body>
+</html>

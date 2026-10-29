@@ -1,4 +1,4 @@
-// Local preview server that mimics Vercel: middleware -> static files (filesystem first) -> /api functions -> SPA rewrite.
+// Local preview server that mimics Vercel: redirects -> middleware -> static files (filesystem first) -> /api functions -> rewrites.
 // Feedback goes to an in-memory mock Supabase unless SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in .env.
 //   npm run dev            -> http://localhost:3000   (password defaults to "preview" locally)
 //   GET /__mock/rows       -> rows the mock received (local only)
@@ -18,14 +18,15 @@ const mockRows = [];
 const useMock = !process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EFI_MOCK === "1";
 if (useMock) { process.env.SUPABASE_URL = `http://127.0.0.1:${PORT}/__mock_supabase`; process.env.SUPABASE_SERVICE_ROLE_KEY = "mock-local-key"; }
 
-const { default: middleware } = await import(join(root, "middleware.js"));
+const mwMod = await import(join(root, "middleware.js"));
+const middleware = mwMod.default;
 const feedback = await import(join(root, "api/feedback.js"));
+const { compileSource } = await import(join(root, "lib/route-match.js"));
 const vcfg = JSON.parse(readFileSync(join(root, "vercel.json"), "utf8"));
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json", ".svg": "image/svg+xml", ".txt": "text/plain; charset=utf-8", ".woff2": "font/woff2", ".png": "image/png" };
 const pub = join(root, vcfg.outputDirectory);
-const toRe = src => new RegExp("^" + src.replace(/\(\.\*\)/g, "(.*)") + "$");
-const headerFor = p => Object.assign({}, ...vcfg.headers.filter(h => toRe(h.source).test(p)).map(h => Object.fromEntries(h.headers.map(x => [x.key, x.value]))));
-const mwMatch = /^\/(?!robots\.txt$|favicon\.svg$).*$/;
+const headerFor = p => Object.assign({}, ...(vcfg.headers || []).filter(h => compileSource(h.source).test(p)).map(h => Object.fromEntries(h.headers.map(x => [x.key, x.value]))));
+const mwMatch = compileSource(mwMod.config.matcher[0]);
 
 async function toRequest(req) {
   const chunks = []; for await (const c of req) chunks.push(c);
@@ -54,6 +55,11 @@ http.createServer(async (req, res) => {
       res.writeHead(201); return res.end();
     }
     if (url.pathname === "/__mock/rows") { res.writeHead(200, { "content-type": "application/json" }); return res.end(JSON.stringify(mockRows)); }
+    const redir = (vcfg.redirects || []).find(r => compileSource(r.source).test(url.pathname));
+    if (redir) {
+      res.writeHead(redir.permanent ? 308 : 307, { Location: redir.destination + url.search, "Cache-Control": "no-store", ...headerFor(url.pathname) });
+      return res.end();
+    }
     const request = await toRequest(req);
     if (mwMatch.test(url.pathname)) {
       const r = await middleware(request.clone());
@@ -65,7 +71,15 @@ http.createServer(async (req, res) => {
       const fn = feedback[req.method];
       return send(res, fn ? await fn(request) : new Response("Method not allowed", { status: 405 }));
     }
-    const f = (await file(url.pathname)) || join(pub, "index.html"); // filesystem first, then SPA rewrite
+    let f = await file(url.pathname); // filesystem first, then the first matching rewrite
+    if (!f) {
+      const rewrite = (vcfg.rewrites || []).find(r => compileSource(r.source).test(url.pathname));
+      f = rewrite ? await file(rewrite.destination) : null;
+    }
+    if (!f) {
+      res.writeHead(404, { "content-type": "text/plain; charset=utf-8", "Cache-Control": "no-store", ...headerFor(url.pathname) });
+      return res.end(req.method === "HEAD" ? undefined : "Not found");
+    }
     let body = await readFile(f);
     const type = TYPES[extname(f)] || "application/octet-stream";
     const extra = {};
