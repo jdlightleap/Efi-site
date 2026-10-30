@@ -86,7 +86,10 @@ test("published files keep the home page and point at the prototypes", () => {
   assert.match(pilot, /In plain words/);
   assert.match(pilot, /The payoff/);
   assert.match(pilot, /9 Jul 2026/);
-  assert.match(pilot, /"id": "H1"[^]{0,240}"tier": "New"/);
+  assert.match(pilot, /"id": "H1"[^]{0,240}"tier": "Horizon"/);
+  assert.match(pilot, /"id": "R6"[^]{0,160}"tier": "New"/);
+  assert.match(pilot, /<meta name="robots" content="noindex, nofollow, noarchive">/);
+  assert.match(pilot, /MOCKUP · NOT LIVE/);
   assert.match(pilot, /\/prototypes\/safety-shield\//);
   assert.match(pilot, /\/prototypes\/connection-precheck\//);
   assert.match(pilot, /url\(assets\/fonts\/Bricolage\.woff2\)/);
